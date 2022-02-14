@@ -67,17 +67,17 @@ public class Rabbit extends Animal
         }
     }
 
-    /**
-     * Increase the age.
-     * This could result in the rabbit's death.
-     */
-    private void incrementAge()
-    {
-        age++;
-        if(age > MAX_AGE) {
-            setDead();
-        }
-    }
+//    /**
+//     * Increase the age.
+//     * This could result in the rabbit's death.
+//     */
+//    private void incrementAge()
+//    {
+//        age++;
+//        if(age > MAX_AGE) {
+//            setDead();
+//        }
+//    }
     
     /**
      * Check whether or not this rabbit is to give birth at this step.
@@ -98,26 +98,26 @@ public class Rabbit extends Animal
         }
     }
         
-    /**
-     * Generate a number representing the number of births,
-     * if it can breed.
-     * @return The number of births (may be zero).
-     */
-    private int breed()
-    {
-        int births = 0;
-        if(canBreed() && rand.nextDouble() <= BREEDING_PROBABILITY) {
-            births = rand.nextInt(MAX_LITTER_SIZE) + 1;
-        }
-        return births;
-    }
-
-    /**
-     * A rabbit can breed if it has reached the breeding age.
-     * @return true if the rabbit can breed, false otherwise.
-     */
-    private boolean canBreed()
-    {
-        return age >= BREEDING_AGE;
-    }
+//    /**
+//     * Generate a number representing the number of births,
+//     * if it can breed.
+//     * @return The number of births (may be zero).
+//     */
+//    private int breed()
+//    {
+//        int births = 0;
+//        if(canBreed() && rand.nextDouble() <= BREEDING_PROBABILITY) {
+//            births = rand.nextInt(MAX_LITTER_SIZE) + 1;
+//        }
+//        return births;
+//    }
+//
+//    /**
+//     * A rabbit can breed if it has reached the breeding age.
+//     * @return true if the rabbit can breed, false otherwise.
+//     */
+//    private boolean canBreed()
+//    {
+//        return age >= BREEDING_AGE;
+//    }
 }

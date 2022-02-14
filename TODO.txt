@@ -1,0 +1,8 @@
+TODO LIST
+
+- Sort out Vulture class: Differentiate between killing and eating
+- For predators that kill, determine what causes them to either eat/ not eat.
+- Behaviour interfaces + implementation w/ different times of day
+- No. of steps for each day - eg. 2400 steps per day
+- Potentially, enum for different times of day
+- Time of day + day displayed

@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.Random;
 
 /**
  * A class representing shared characteristics of animals.
@@ -14,7 +15,17 @@ public abstract class Animal
     private Field field;
     // The animal's position in the field.
     private Location location;
-    
+
+    protected int age;
+    private int breedingProbability;
+    private int maxLitterSize;
+    private int breedingAge;
+    protected int maxAge;
+
+    private boolean isMale;
+
+    protected Random rand = Randomizer.getRandom();
+
     /**
      * Create a new animal at location in field.
      * 
@@ -26,6 +37,9 @@ public abstract class Animal
         alive = true;
         this.field = field;
         setLocation(location);
+
+        // randomly assign male or female
+        this.isMale = rand.nextBoolean();
     }
     
     /**
@@ -87,5 +101,61 @@ public abstract class Animal
     protected Field getField()
     {
         return field;
+    }
+
+    /**
+     * Generate a number representing the number of births,
+     * if it can breed.
+     * @return The number of births (may be zero).
+     */
+    protected int breed()
+    {
+        int births = 0;
+        if(canBreed() && rand.nextDouble() <= breedingProbability) {
+            births = rand.nextInt(maxLitterSize) + 1;
+        }
+        return births;
+    }
+
+    /**
+     * An animal can breed if it has reached the breeding age.
+     * @param animal Animal which we check to be adjacent or not.
+     */
+    private boolean canBreed(Animal animal)
+    {
+        for (Location loc : field.adjacentLocations(location)) {
+            if (!animal.getLocation().equals(loc)) {
+                return false;
+            }
+        }
+
+        if (((animal.isMale() && isMale())) || ((!animal.isMale() && !isMale()))) {
+            return false;
+        }
+
+        return age >= breedingAge;
+    }
+
+    /**
+     * Increase the age.
+     * This could result in the animals death.
+     */
+    protected void incrementAge()
+    {
+        age++;
+        if(age > maxAge) {
+            setDead();
+        }
+    }
+
+    /**
+     * Check whether or not this animal is to give birth at this step.
+     * New births will be made into free adjacent locations.
+     * @param newAnimals A list to return newly born rabbits.
+     */
+    abstract void giveBirth(List<Animal> newAnimals);
+
+    public boolean isMale() {
+        return this.isMale;
     }
 }

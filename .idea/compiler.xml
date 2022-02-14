@@ -2,7 +2,7 @@
 <project version="4">
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="foxes-and-rabbits-handout 2" options="--add-modules java.base,java.desktop" />
+      <module name="PPA-CW3" options="--add-modules java.base,java.desktop" />
     </option>
   </component>
 </project>
