@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public abstract class Predator extends Animal {
+public abstract class Predator extends Animal implements AbleToEat, Hunger {
 
     private int foodLevel;
     //private int foodValue;
@@ -49,8 +49,11 @@ public abstract class Predator extends Animal {
             if(animal instanceof Prey) {
                 //Rabbit rabbit = (Rabbit) animal;
                 Prey prey = (Prey) animal;
+                // kills animal
+                // random chance to eat
                 if ((prey.isAlive()) && isAbleToEat(prey)) {
                     prey.setDead();
+                    // eat
                     foodLevel += prey.getFoodValue();
                     return where;
                 }
@@ -62,7 +65,8 @@ public abstract class Predator extends Animal {
     /**
      * Make this predator more hungry. This could result in the predator's death.
      */
-    protected void incrementHunger()
+    @Override
+    public void incrementHunger()
     {
         foodLevel--;
         if(foodLevel <= 0) {

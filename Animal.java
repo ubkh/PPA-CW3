@@ -65,6 +65,9 @@ public abstract class Animal
     protected void setDead()
     {
         alive = false;
+    }
+
+    protected void setEaten() {
         if(location != null) {
             field.clear(location);
             location = null;

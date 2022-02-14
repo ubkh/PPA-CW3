@@ -1,7 +1,12 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Lion extends Predator {
+
+    private static final double EATING_PROBABILITY = 0.8;
+
+    Random random = new Random();
 
     public Lion(int foodLevel, boolean randomAge, Field field, Location location, ArrayList<Prey> prey) {
         super(foodLevel, randomAge, field, location, prey);
@@ -27,6 +32,13 @@ public class Lion extends Predator {
                 // Overcrowding.
                 setDead();
             }
+        }
+    }
+
+    @Override
+    public void eatOrLeave(Animal animal) {
+        if (random.nextDouble() <= EATING_PROBABILITY) {
+            animal.setEaten();
         }
     }
 
