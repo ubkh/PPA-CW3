@@ -37,8 +37,10 @@ public class Lion extends Predator {
 
     @Override
     public void eatOrLeave(Animal animal) {
+        Prey prey = (Prey) animal;
         if (random.nextDouble() <= EATING_PROBABILITY) {
             animal.setEaten();
+            incrementFoodLevel(prey.getFoodValue());
         }
     }
 

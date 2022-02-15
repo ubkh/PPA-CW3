@@ -50,11 +50,11 @@ public abstract class Predator extends Animal implements AbleToEat, Hunger {
                 //Rabbit rabbit = (Rabbit) animal;
                 Prey prey = (Prey) animal;
                 // kills animal
-                // random chance to eat
                 if ((prey.isAlive()) && isAbleToEat(prey)) {
                     prey.setDead();
-                    // eat
-                    foodLevel += prey.getFoodValue();
+                    // random chance to eat
+                    eatOrLeave(prey);
+                    //foodLevel += prey.getFoodValue();
                     return where;
                 }
             }
@@ -84,5 +84,9 @@ public abstract class Predator extends Animal implements AbleToEat, Hunger {
 
     private boolean isAbleToEat(Prey prey) {
         return listOfPrey.contains(prey);
+    }
+
+    protected void incrementFoodLevel(int foodLevel) {
+        this.foodLevel += foodLevel;
     }
 }
