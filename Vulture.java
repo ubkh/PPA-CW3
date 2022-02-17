@@ -44,7 +44,14 @@ public class Vulture extends Animal implements AbleToEat {
 
     @Override
     public void eatOrLeave(Animal animal) {
+        Prey prey = (Prey) animal;
         animal.setEaten();
+        incrementFoodLevel(prey.getFoodValue());
+    }
+
+    @Override
+    public void incrementFoodLevel(int foodLevel) {
+        this.foodLevel += foodLevel;
     }
 
     private Location findFood() {
@@ -59,7 +66,7 @@ public class Vulture extends Animal implements AbleToEat {
                 Prey prey = (Prey) animal;
                 if (!prey.isAlive()) {
                     // eat anything that is already dead
-                    foodLevel += prey.getFoodValue();
+                    eatOrLeave(prey);
                     return where;
                 }
             }
@@ -78,5 +85,27 @@ public class Vulture extends Animal implements AbleToEat {
         if(foodLevel <= 0) {
             setDead();
         }
+    }
+
+    protected boolean canBreed()
+    {
+        for (Location loc : getField().adjacentLocations(getLocation())) {
+
+            Object animal = getField().getObjectAt(loc);
+
+            if (animal instanceof Vulture) {
+                Vulture vulture = (Vulture) animal;
+
+                if (!vulture.getLocation().equals(loc)) {
+                    return false;
+                }
+
+                if (((vulture.isMale() && isMale())) || ((!vulture.isMale() && !isMale()))) {
+                    return false;
+                }
+            }
+        }
+
+        return age >= breedingAge;
     }
 }

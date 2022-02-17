@@ -7,7 +7,6 @@ public abstract class Predator extends Animal implements AbleToEat, Hunger {
     private int foodLevel;
     //private int foodValue;
     //private static final int FOOD_VALUE = 9;
-    private ArrayList<Prey> listOfPrey;
 
     /**
      * Create a new animal at location in field.
@@ -17,12 +16,13 @@ public abstract class Predator extends Animal implements AbleToEat, Hunger {
      */
 
     // Note: Potentially replace ArrayList parameter with lambda
-    public Predator(int foodLevel, boolean randomAge, Field field, Location location, ArrayList<Prey> prey) {
+    public Predator(int foodLevel, boolean randomAge, Field field, Location location, int maxAge) {
         super(field, location);
-        this.listOfPrey = prey;
+        super.maxAge = maxAge;
         // Note: Replaced constant field RABBIT_FOOD_VALUE with stomachCapacity
         // We do this so max capacity doesn't depend on a single animal it eats
         if(randomAge) {
+            System.out.println(maxAge);
             age = rand.nextInt(maxAge);
             this.foodLevel = rand.nextInt(foodLevel);
         }
@@ -50,7 +50,7 @@ public abstract class Predator extends Animal implements AbleToEat, Hunger {
                 //Rabbit rabbit = (Rabbit) animal;
                 Prey prey = (Prey) animal;
                 // kills animal
-                if ((prey.isAlive()) && isAbleToEat(prey)) {
+                if (prey.isAlive()) {
                     prey.setDead();
                     // random chance to eat
                     eatOrLeave(prey);
@@ -66,27 +66,20 @@ public abstract class Predator extends Animal implements AbleToEat, Hunger {
      * Make this predator more hungry. This could result in the predator's death.
      */
     @Override
-    public void incrementHunger()
-    {
+    public void incrementHunger() {
         foodLevel--;
-        if(foodLevel <= 0) {
+        if (foodLevel <= 0) {
             setDead();
         }
-    }
-
-    protected ArrayList<Prey> getPrey() {
-        return this.listOfPrey;
     }
 
     protected int getFoodLevel() {
         return this.foodLevel;
     }
 
-    private boolean isAbleToEat(Prey prey) {
-        return listOfPrey.contains(prey);
-    }
 
-    protected void incrementFoodLevel(int foodLevel) {
+    @Override
+    public void incrementFoodLevel(int foodLevel) {
         this.foodLevel += foodLevel;
     }
 }

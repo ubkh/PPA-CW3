@@ -17,9 +17,9 @@ public abstract class Animal
     private Location location;
 
     protected int age;
-    private int breedingProbability;
-    private int maxLitterSize;
-    private int breedingAge;
+    protected double breedingProbability;
+    protected int maxLitterSize;
+    protected int breedingAge;
     protected int maxAge;
 
     private boolean isMale;
@@ -120,24 +120,7 @@ public abstract class Animal
         return births;
     }
 
-    /**
-     * An animal can breed if it has reached the breeding age.
-     * @param animal Animal which we check to be adjacent or not.
-     */
-    private boolean canBreed(Animal animal)
-    {
-        for (Location loc : field.adjacentLocations(location)) {
-            if (!animal.getLocation().equals(loc)) {
-                return false;
-            }
-        }
-
-        if (((animal.isMale() && isMale())) || ((!animal.isMale() && !isMale()))) {
-            return false;
-        }
-
-        return age >= breedingAge;
-    }
+    abstract protected boolean canBreed();
 
     /**
      * Increase the age.

@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="PPA-CW3:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/PPA_CW3_jar</output-path>
+    <root id="archive" name="PPA-CW3.jar">
+      <element id="module-output" name="PPA-CW3" />
+    </root>
+  </artifact>
+</component>

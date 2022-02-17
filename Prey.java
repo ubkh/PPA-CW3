@@ -8,8 +8,9 @@ public abstract class Prey extends Animal {
      * @param field    The field currently occupied.
      * @param location The location within the field.
      */
-    public Prey(int foodValue, boolean randomAge, Field field, Location location) {
+    public Prey(int foodValue, boolean randomAge, Field field, Location location, int maxAge) {
         super(field, location);
+        super.maxAge = maxAge;
         this.foodValue = foodValue;
         age = 0;
         if(randomAge) {

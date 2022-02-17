@@ -3,7 +3,7 @@ import java.util.List;
 public class Elephant extends Prey {
 
     public Elephant(int foodValue, boolean randomAge, Field field, Location location) {
-        super(foodValue, randomAge, field, location);
+        super(foodValue, randomAge, field, location, 400);
     }
 
     @Override
@@ -35,6 +35,28 @@ public class Elephant extends Prey {
             Elephant young = new Elephant(super.getFoodValue(),true, field, loc);
             newElephants.add(young);
         }
+    }
+
+    protected boolean canBreed()
+    {
+        for (Location loc : getField().adjacentLocations(getLocation())) {
+
+            Object animal = getField().getObjectAt(loc);
+
+            if (animal instanceof Elephant) {
+                Elephant elephant = (Elephant) animal;
+
+                if (!elephant.getLocation().equals(loc)) {
+                    return false;
+                }
+
+                if (((elephant.isMale() && isMale())) || ((!elephant.isMale() && !isMale()))) {
+                    return false;
+                }
+            }
+        }
+
+        return age >= breedingAge;
     }
 
 }
