@@ -4,7 +4,8 @@ public class Zebra extends Prey {
 
     public Zebra(int foodValue, boolean randomAge, Field field, Location location) {
         super(foodValue, randomAge, field, location, 40);
-        super.breedingProbability= 0.12;
+        super.breedingAge = 15;
+        super.breedingProbability= 0.4;
         super.maxLitterSize = 4;
     }
 
@@ -42,23 +43,30 @@ public class Zebra extends Prey {
 
     protected boolean canBreed()
     {
-//        for (Location loc : getField().adjacentLocations(getLocation())) {
-//
-//            Object animal = getField().getObjectAt(loc);
-//
-//            if (animal instanceof Zebra) {
-//                Zebra zebra = (Zebra) animal;
-//
-//                if (!zebra.getLocation().equals(loc)) {
-//                    return false;
-//                }
-//
-//                if (((zebra.isMale() && isMale())) || ((!zebra.isMale() && !isMale()))) {
-//                    return false;
-//                }
-//            }
-//        }
+        if (age < breedingAge) {
+            return false;
+        }
 
-        return age >= breedingAge;
+        for (Location loc : getField().adjacentLocations(getLocation())) {
+
+            Object animal = getField().getObjectAt(loc);
+
+            if (animal instanceof Zebra) {
+                //System.out.println("LION IN ADJACENT LOCATION");
+                Zebra zebra = (Zebra) animal;
+
+//                if (!lion.getLocation().equals(loc)) {
+//                    continue;
+//                }
+
+                if (!(((zebra.isMale() && isMale())) || ((!zebra.isMale() && !isMale())))) {
+                    System.out.println("ZEBRA CAN BREED");
+                    return true;
+                }
+            }
+        }
+        return false;
+
+        //return age >= breedingAge;
     }
 }

@@ -9,9 +9,9 @@ public class Lion extends Predator {
     Random random = new Random();
 
     public Lion(int foodLevel, boolean randomAge, Field field, Location location) {
-        super(foodLevel, randomAge, field, location, 150);
-        super.breedingAge = 20;
-        super.breedingProbability = 0.12;
+        super(foodLevel, randomAge, field, location, 40);
+        super.breedingAge = 10;
+        super.breedingProbability = 0.25;
         super.maxLitterSize = 2;
     }
 
@@ -40,11 +40,11 @@ public class Lion extends Predator {
 
     @Override
     public void eatOrLeave(Animal animal) {
-        Prey prey = (Prey) animal;
-        //if (random.nextDouble() <= EATING_PROBABILITY) {
-            animal.setEaten();
-            incrementFoodLevel(prey.getFoodValue());
-            System.out.println("PREY EATEN");
+//        Prey prey = (Prey) animal;
+//        //if (random.nextDouble() <= EATING_PROBABILITY) {
+//            animal.setEaten();
+//            incrementFoodLevel(prey.getFoodValue());
+//            System.out.println("PREY EATEN");
         //} else {
         //    System.out.println("PREY LEFT");
         //}
@@ -61,7 +61,7 @@ public class Lion extends Predator {
         int births = breed();
         //System.out.println("BIRTHS: " + births);
         for(int b = 0; b < births && free.size() > 0; b++) {
-            //System.out.println("LION BIRTH");
+            System.out.println("LION BIRTH");
             Location loc = free.remove(0);
             Lion young = new Lion(super.getFoodLevel(),true, field, loc);
             newLions.add(young);
@@ -75,28 +75,31 @@ public class Lion extends Predator {
     protected boolean canBreed()
     {
 //        //boolean returnValue = false;
-//
-//        if (age < breedingAge) {
-//            return false;
-//        }
-//
-//        for (Location loc : getField().adjacentLocations(getLocation())) {
-//
-//            Object animal = getField().getObjectAt(loc);
-//
-//            if (animal instanceof Lion) {
-//                Lion lion = (Lion) animal;
-//
-////                if (!lion.getLocation().equals(loc)) {
-////                    continue;
-////                }
-//
-//                if (!(((lion.isMale() && isMale())) || ((!lion.isMale() && !isMale())))) {
-//                    return true;
+
+        if (age < breedingAge) {
+            return false;
+        }
+
+        for (Location loc : getField().adjacentLocations(getLocation())) {
+
+            Object animal = getField().getObjectAt(loc);
+
+            if (animal instanceof Lion) {
+                //System.out.println("LION IN ADJACENT LOCATION");
+                Lion lion = (Lion) animal;
+
+//                if (!lion.getLocation().equals(loc)) {
+//                    continue;
 //                }
-//            }
-//        }
-//        return false;
-        return age >= breedingAge;
+
+                if (!(((lion.isMale() && isMale())) || ((!lion.isMale() && !isMale())))) {
+                    System.out.println("LION CAN BREED");
+                    return true;
+                }
+            }
+        }
+        return false;
+
+        //return age >= breedingAge;
     }
 }

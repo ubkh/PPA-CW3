@@ -19,9 +19,9 @@ public class Simulator
     // The default depth of the grid.
     private static final int DEFAULT_DEPTH = 80;
     // The probability that a fox will be created in any given grid position.
-    private static final double LION_CREATION_PROBABILITY = 0.09;
+    private static final double LION_CREATION_PROBABILITY = 0.01;
     // The probability that a rabbit will be created in any given grid position.
-    private static final double ZEBRA_CREATION_PROBABILITY = 0.08;
+    private static final double ZEBRA_CREATION_PROBABILITY = 0.05;
 
     private static final double VULTURE_CREATION_PROBABILITY = 0.08;
 
@@ -61,9 +61,9 @@ public class Simulator
 
         // Create a view of the state of each location in the field.
         view = new SimulatorView(depth, width);
-        view.setColor(Zebra.class, Color.BLACK);
-        view.setColor(Lion.class, Color.YELLOW);
-        view.setColor(Vulture.class, new Color(153,102,0));
+        view.setColor(Zebra.class, Color.BLUE);
+        view.setColor(Lion.class, Color.RED);
+        //view.setColor(Vulture.class, new Color(153,102,0));
         
         // Setup a valid starting point
         // .
@@ -149,14 +149,14 @@ public class Simulator
                 }
                 else if(rand.nextDouble() <= ZEBRA_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
-                    Zebra zebra = new Zebra(1, true, field, location);
+                    Zebra zebra = new Zebra(5, true, field, location);
                     animals.add(zebra);
                 }
-                else if(rand.nextDouble() <= VULTURE_CREATION_PROBABILITY) {
-                    Location location = new Location(row, col);
-                    Vulture vulture = new Vulture(field, location);
-                    animals.add(vulture);
-                }
+//                else if(rand.nextDouble() <= VULTURE_CREATION_PROBABILITY) {
+//                    Location location = new Location(row, col);
+//                    Vulture vulture = new Vulture(field, location);
+//                    animals.add(vulture);
+//                }
                 // else leave the location empty.
             }
         }

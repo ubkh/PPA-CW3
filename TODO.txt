@@ -9,3 +9,4 @@ TODO LIST
 - Behaviour for animals: Probability of not moving to a new square (Cheetahs have lower
 probability)
 - Decay method for dead animals: eg. possibly after 5-10 steps if not eaten by another animal
+- Visualise dead but not eaten animals

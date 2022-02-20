@@ -21,14 +21,14 @@ public abstract class Predator extends Animal implements AbleToEat, Hunger {
         super.maxAge = maxAge;
         // Note: Replaced constant field RABBIT_FOOD_VALUE with stomachCapacity
         // We do this so max capacity doesn't depend on a single animal it eats
+        this.foodLevel = foodLevel;
+
         if(randomAge) {
-            System.out.println(maxAge);
+            //System.out.println(maxAge);
             age = rand.nextInt(maxAge);
-            this.foodLevel = rand.nextInt(foodLevel);
         }
         else {
             age = 0;
-            this.foodLevel = foodLevel;
         }
     }
 
@@ -54,8 +54,8 @@ public abstract class Predator extends Animal implements AbleToEat, Hunger {
                 if (prey.isAlive()) {
                     prey.setDead();
                     // random chance to eat
-                    eatOrLeave(prey);
-                    //foodLevel += prey.getFoodValue();
+                    //eatOrLeave(prey);
+                    foodLevel += prey.getFoodValue();
                     return where;
                 }
             }
