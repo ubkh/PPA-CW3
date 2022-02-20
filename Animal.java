@@ -65,6 +65,7 @@ public abstract class Animal
     protected void setDead()
     {
         alive = false;
+        setEaten();
     }
 
     protected void setEaten() {

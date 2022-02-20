@@ -47,6 +47,7 @@ public abstract class Predator extends Animal implements AbleToEat, Hunger {
             Location where = it.next();
             Object animal = field.getObjectAt(where);
             if(animal instanceof Prey) {
+                //TODO: just return where, and do the below elsewhere.
                 //Rabbit rabbit = (Rabbit) animal;
                 Prey prey = (Prey) animal;
                 // kills animal

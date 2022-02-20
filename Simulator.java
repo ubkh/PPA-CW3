@@ -23,6 +23,8 @@ public class Simulator
     // The probability that a rabbit will be created in any given grid position.
     private static final double ZEBRA_CREATION_PROBABILITY = 0.08;
 
+    private static final double VULTURE_CREATION_PROBABILITY = 0.08;
+
     // List of animals in the field.
     private List<Animal> animals;
     // The current state of the field.
@@ -59,8 +61,9 @@ public class Simulator
 
         // Create a view of the state of each location in the field.
         view = new SimulatorView(depth, width);
-        view.setColor(Zebra.class, Color.ORANGE);
-        view.setColor(Lion.class, Color.BLUE);
+        view.setColor(Zebra.class, Color.BLACK);
+        view.setColor(Lion.class, Color.YELLOW);
+        view.setColor(Vulture.class, new Color(153,102,0));
         
         // Setup a valid starting point
         // .
@@ -148,6 +151,11 @@ public class Simulator
                     Location location = new Location(row, col);
                     Zebra zebra = new Zebra(1, true, field, location);
                     animals.add(zebra);
+                }
+                else if(rand.nextDouble() <= VULTURE_CREATION_PROBABILITY) {
+                    Location location = new Location(row, col);
+                    Vulture vulture = new Vulture(field, location);
+                    animals.add(vulture);
                 }
                 // else leave the location empty.
             }

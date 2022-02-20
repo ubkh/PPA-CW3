@@ -41,13 +41,13 @@ public class Lion extends Predator {
     @Override
     public void eatOrLeave(Animal animal) {
         Prey prey = (Prey) animal;
-        if (random.nextDouble() <= EATING_PROBABILITY) {
+        //if (random.nextDouble() <= EATING_PROBABILITY) {
             animal.setEaten();
             incrementFoodLevel(prey.getFoodValue());
             System.out.println("PREY EATEN");
-        } else {
-            System.out.println("PREY LEFT");
-        }
+        //} else {
+        //    System.out.println("PREY LEFT");
+        //}
     }
 
 
@@ -74,8 +74,8 @@ public class Lion extends Predator {
      */
     protected boolean canBreed()
     {
-        //boolean returnValue = false;
-
+//        //boolean returnValue = false;
+//
 //        if (age < breedingAge) {
 //            return false;
 //        }
@@ -97,7 +97,6 @@ public class Lion extends Predator {
 //            }
 //        }
 //        return false;
-//
         return age >= breedingAge;
     }
 }
