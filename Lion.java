@@ -1,26 +1,45 @@
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Lion extends Predator {
 
-    private static final double EATING_PROBABILITY = 0.8;
+    private static final double BREEDING_PROBABILITY = 0.12;
+    private static final double EATING_PROBABILITY = 0.3;
+    private static final int MAX_LITTER_SIZE = 3;
+    private static final int BREEDING_AGE = 10;
+    private static final int MAX_AGE = 150;
 
-    Random random = new Random();
+    private static final int DEFAULT_FOOD_LEVEL = 10;
 
     public Lion(int foodLevel, boolean randomAge, Field field, Location location) {
-        super(foodLevel, randomAge, field, location, 40);
-        super.breedingAge = 10;
-        super.breedingProbability = 0.25;
-        super.maxLitterSize = 2;
+        super(foodLevel, randomAge, field, location);
     }
 
     @Override
-    public void act(List<Animal> newLions) {
+    public double getBreedingProbability() {
+        return BREEDING_PROBABILITY;
+    }
+
+    @Override
+    public int getMaxLitterSize() {
+        return MAX_LITTER_SIZE;
+    }
+
+    @Override
+    public int getMaxAge() {
+        return MAX_AGE;
+    }
+
+    @Override
+    protected Organism createNewOrganism(Field field, Location location) {
+        return new Lion(DEFAULT_FOOD_LEVEL, true, field, location);
+    }
+
+    @Override
+    public void act(List<Entity> newPredators) {
         incrementAge();
         incrementHunger();
         if(isAlive()) {
-            giveBirth(newLions);
+            giveBirth(newPredators);
             // Move towards a source of food if found.
             Location newLocation = findFood();
             if(newLocation == null) {
@@ -33,73 +52,32 @@ public class Lion extends Predator {
             }
             else {
                 // Overcrowding.
-                setDead();
+                //setDead();
+                remove();
             }
         }
     }
 
     @Override
-    public void eatOrLeave(Animal animal) {
-//        Prey prey = (Prey) animal;
-//        //if (random.nextDouble() <= EATING_PROBABILITY) {
-//            animal.setEaten();
-//            incrementFoodLevel(prey.getFoodValue());
-//            System.out.println("PREY EATEN");
-        //} else {
-        //    System.out.println("PREY LEFT");
-        //}
+    public double getEatingProbability() {
+        return EATING_PROBABILITY;
     }
 
-
-    // TODO: Account for fact adjacent lion may have free adjacent location, but current one may not.
     @Override
-    void giveBirth(List<Animal> newLions) {
-        // New lions are born into adjacent locations.
-        // Get a list of adjacent free locations.
-        Field field = getField();
-        List<Location> free = field.getFreeAdjacentLocations(getLocation());
-        int births = breed();
-        //System.out.println("BIRTHS: " + births);
-        for(int b = 0; b < births && free.size() > 0; b++) {
-            System.out.println("LION BIRTH");
-            Location loc = free.remove(0);
-            Lion young = new Lion(super.getFoodLevel(),true, field, loc);
-            newLions.add(young);
-        }
-    }
-
-    /**
-     * An animal can breed if it is adjacent to another animal of the same species
-     * and opposite gender, and has reached the breeding age.
-     */
-    protected boolean canBreed()
-    {
-//        //boolean returnValue = false;
-
-        if (age < breedingAge) {
+    public boolean canBreed() {
+        if (getAge() < BREEDING_AGE) {
             return false;
         }
 
         for (Location loc : getField().adjacentLocations(getLocation())) {
-
             Object animal = getField().getObjectAt(loc);
-
             if (animal instanceof Lion) {
-                //System.out.println("LION IN ADJACENT LOCATION");
                 Lion lion = (Lion) animal;
-
-//                if (!lion.getLocation().equals(loc)) {
-//                    continue;
-//                }
-
                 if (!(((lion.isMale() && isMale())) || ((!lion.isMale() && !isMale())))) {
-                    System.out.println("LION CAN BREED");
                     return true;
                 }
             }
         }
         return false;
-
-        //return age >= breedingAge;
     }
 }

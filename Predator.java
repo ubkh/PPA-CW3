@@ -1,45 +1,23 @@
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
-public abstract class Predator extends Animal implements AbleToEat, Hunger {
+public abstract class Predator extends Animal implements AbleToEat {
 
     private int foodLevel;
-    //private int foodValue;
-    //private static final int FOOD_VALUE = 9;
 
-    /**
-     * Create a new animal at location in field.
-     *
-     * @param field    The field currently occupied.
-     * @param location The location within the field.
-     */
+    private Random rand = new Random();
 
-    // Note: Potentially replace ArrayList parameter with lambda
-    public Predator(int foodLevel, boolean randomAge, Field field, Location location, int maxAge) {
-        super(field, location);
-        super.maxAge = maxAge;
-        // Note: Replaced constant field RABBIT_FOOD_VALUE with stomachCapacity
-        // We do this so max capacity doesn't depend on a single animal it eats
+    public Predator(int foodLevel, boolean randomAge, Field field, Location location) {
+        super(randomAge, field, location);
+
         this.foodLevel = foodLevel;
-
-        if(randomAge) {
-            //System.out.println(maxAge);
-            age = rand.nextInt(maxAge);
-        }
-        else {
-            age = 0;
-        }
     }
 
-    /**
-     * Make this predator act - that is: make it do
-     * whatever it wants/needs to do.
-     * @param newAnimals A list to receive newly born predators.
-     */
-    abstract public void act(List<Animal> newAnimals);
+    @Override
+    abstract public void act(List<Entity> newPredators);
 
-    protected Location findFood() {
+    public Location findFood() {
         Field field = getField();
         List<Location> adjacent = field.adjacentLocations(getLocation());
         Iterator<Location> it = adjacent.iterator();
@@ -47,16 +25,18 @@ public abstract class Predator extends Animal implements AbleToEat, Hunger {
             Location where = it.next();
             Object animal = field.getObjectAt(where);
             if(animal instanceof Prey) {
-                //TODO: just return where, and do the below elsewhere.
-                //Rabbit rabbit = (Rabbit) animal;
                 Prey prey = (Prey) animal;
                 // kills animal
+                //prey.setDead();
+                //eatOrLeave(prey);
                 if (prey.isAlive()) {
+                    //System.out.println("ALIVE");
                     prey.setDead();
+                    // NOTE: ONLY RETURN WHERE IF EATEN
                     // random chance to eat
-                    //eatOrLeave(prey);
-                    foodLevel += prey.getFoodValue();
-                    return where;
+                    boolean eaten = eatOrLeave(prey);
+                    //return where;
+                    return eaten ? where : null;
                 }
             }
         }
@@ -68,19 +48,42 @@ public abstract class Predator extends Animal implements AbleToEat, Hunger {
      */
     @Override
     public void incrementHunger() {
-        foodLevel--;
-        if (foodLevel <= 0) {
-            setDead();
-        }
+        //if (isAlive()) {
+            foodLevel--;
+            if (foodLevel <= 0) {
+                remove();
+            }
+        //}
     }
 
     protected int getFoodLevel() {
         return this.foodLevel;
     }
 
+    protected void setFoodLevel(int level) {
+        this.foodLevel = level;
+    }
 
     @Override
     public void incrementFoodLevel(int foodLevel) {
         this.foodLevel += foodLevel;
     }
+
+    abstract public double getEatingProbability();
+
+    @Override
+    public boolean eatOrLeave(Prey prey) {
+        if (rand.nextDouble() <= getEatingProbability()) {
+            incrementFoodLevel(prey.getFoodValue());
+            prey.setEaten();
+            System.out.println("EATEN PREY");
+            return true;
+        } else {
+            System.out.println("LEFT PREY");
+            return false;
+        }
+    }
+
+    @Override
+    abstract protected boolean canBreed();
 }

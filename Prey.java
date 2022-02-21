@@ -1,24 +1,31 @@
+import java.util.List;
+
 public abstract class Prey extends Animal {
 
-    private int foodValue;
+    private final int foodValue;
 
-    /**
-     * Create a new animal at location in field.
-     *
-     * @param field    The field currently occupied.
-     * @param location The location within the field.
-     */
-    public Prey(int foodValue, boolean randomAge, Field field, Location location, int maxAge) {
-        super(field, location);
-        super.maxAge = maxAge;
+    public Prey(int foodValue, boolean randomAge, Field field, Location location) {
+        super(randomAge, field, location);
+
         this.foodValue = foodValue;
-        age = 0;
-        if(randomAge) {
-            age = rand.nextInt(maxAge);
-        }
     }
 
-    public int getFoodValue() {
+    @Override
+    abstract public void act(List<Entity> newPrey);
+
+    @Override
+    abstract public boolean canBreed();
+
+    protected void setEaten() {
+        if(getLocation() != null) {
+            getField().clear(getLocation());
+            setLocationToNull();
+            setField(null);
+        }
+        setExists(false);
+    }
+
+    protected int getFoodValue() {
         return this.foodValue;
     }
 }
