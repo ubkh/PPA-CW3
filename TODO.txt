@@ -1,11 +1,9 @@
 TODO LIST
 
-- Sort out Vulture class: Differentiate between killing and eating
-- For predators that kill, determine what causes them to either eat/ not eat.
 - Behaviour interfaces + implementation w/ different times of day
 - No. of steps for each day - eg. 2400 steps per day
 - Potentially, enum for different times of day
 - Time of day + day displayed
 - Behaviour for animals: Probability of not moving to a new square (Cheetahs have lower
 probability)
-- Decay method for dead animals: eg. possibly after 5-10 steps if not eaten by another animal
+- MAYBE: Decay method for dead animals: eg. possibly after 5-10 steps if not eaten by another animal
