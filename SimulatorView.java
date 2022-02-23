@@ -22,8 +22,11 @@ public class SimulatorView extends JFrame
     private static final Color UNKNOWN_COLOR = Color.gray;
 
     private final String STEP_PREFIX = "Step: ";
+    private final String TIME_DAY_PREFIX = "Day: ";
+    private final String TIME_HOUR_PREFIX = "Hour: ";
     private final String POPULATION_PREFIX = "Population: ";
-    private JLabel stepLabel, population, infoLabel;
+
+    private JLabel stepLabel, population, infoLabel, timeLabel;
     private FieldView fieldView;
     
     // A map for storing colors for participants in the simulation
@@ -43,7 +46,8 @@ public class SimulatorView extends JFrame
 
         setTitle("Predator Prey Simulation");
         stepLabel = new JLabel(STEP_PREFIX, JLabel.CENTER);
-        infoLabel = new JLabel("  ", JLabel.CENTER);
+        timeLabel = new JLabel(" ", JLabel.CENTER);
+        infoLabel = new JLabel(" ", JLabel.CENTER);
         population = new JLabel(POPULATION_PREFIX, JLabel.CENTER);
         
         setLocation(100, 50);
@@ -55,6 +59,8 @@ public class SimulatorView extends JFrame
         JPanel infoPane = new JPanel(new BorderLayout());
             infoPane.add(stepLabel, BorderLayout.WEST);
             infoPane.add(infoLabel, BorderLayout.CENTER);
+            infoPane.add(timeLabel, BorderLayout.EAST);
+
         contents.add(infoPane, BorderLayout.NORTH);
         contents.add(fieldView, BorderLayout.CENTER);
         contents.add(population, BorderLayout.SOUTH);
@@ -105,7 +111,6 @@ public class SimulatorView extends JFrame
         if(!isVisible()) {
             setVisible(true);
         }
-            
         stepLabel.setText(STEP_PREFIX + step);
         stats.reset();
         
@@ -136,6 +141,10 @@ public class SimulatorView extends JFrame
     public boolean isViable(Field field)
     {
         return stats.isViable(field);
+    }
+
+    public void setUpTimeLabel(int day, int hour){
+        timeLabel.setText(TIME_DAY_PREFIX + (day) + " " + TIME_HOUR_PREFIX + (hour));
     }
     
     /**

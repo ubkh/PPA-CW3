@@ -1,11 +1,19 @@
 TODO LIST
 
-- Sort out Vulture class: Differentiate between killing and eating
-- For predators that kill, determine what causes them to either eat/ not eat.
 - Behaviour interfaces + implementation w/ different times of day
 - No. of steps for each day - eg. 2400 steps per day
 - Potentially, enum for different times of day
 - Time of day + day displayed
 - Behaviour for animals: Probability of not moving to a new square (Cheetahs have lower
 probability)
-- Decay method for dead animals: eg. possibly after 5-10 steps if not eaten by another animal
+- MAYBE: Decay method for dead animals: eg. possibly after 5-10 steps if not eaten by another animal
+
+
+- Behaviours: We should aim for 2/3 behaviours - includes the behaviour where a predator doesnt have to eat is a behaviour.
+- Midday field for each animal. when its this hour, the predator will always eat so there 100% chance of eating the food if its found.
+- Sleep Interface with a method for each animal to adjust the sleeping times, or we could even do this in the animal class as an abstract method - we can have it so that female lions sleep for 1.5* the length of male lions
+- We can make elephants only move every 2 steps? - Maybe.
+- we can have a fighting mechnaisim between cheetah and Lion - so during certain times of day they may be able to kill eachother.
+- Plant Grass, Plant PoisonBerries - the poison berries make you sleep.
+
+- At the end you could have a stats window (perhaps use the same code from assignment 1)

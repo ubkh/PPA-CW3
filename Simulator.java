@@ -33,6 +33,8 @@ public class Simulator
     private int step;
     // A graphical view of the simulation.
     private SimulatorView view;
+    //The current hour of the simulation.
+    private int hour;
     
     /**
      * Construct a simulation field with default size.
@@ -119,9 +121,18 @@ public class Simulator
         // Add the newly born foxes and rabbits to the main lists.
         animals.addAll(newAnimals);
 
+        int day = step/120 +1;
+        hour = (step/5) % 24 + 1;
+
+
         view.showStatus(step, field);
+        view.setUpTimeLabel(day,hour);
     }
-        
+
+    public int getHour() {
+        return hour;
+    }
+
     /**
      * Reset the simulation to a starting position.
      */

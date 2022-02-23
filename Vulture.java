@@ -3,7 +3,7 @@ public class Vulture extends Scavenger {
     private static final double BREEDING_PROBABILITY = 0.12;
     private static final int MAX_LITTER_SIZE = 2;
     private static final int BREEDING_AGE = 20;
-    private static final int MAX_AGE = 150;
+    private static final int MAX_AGE = 90;
 
     private static final int DEFAULT_FOOD_LEVEL = 15;
 

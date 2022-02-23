@@ -12,6 +12,7 @@ public class Lion extends Predator {
 
     public Lion(int foodLevel, boolean randomAge, Field field, Location location) {
         super(foodLevel, randomAge, field, location);
+
     }
 
     @Override
