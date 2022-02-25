@@ -11,7 +11,11 @@ probability)
 
 - Behaviours: We should aim for 2/3 behaviours - includes the behaviour where a predator doesnt have to eat is a behaviour.
 - Midday field for each animal. when its this hour, the predator will always eat so there 100% chance of eating the food if its found.
-- Sleep Interface with a method for each animal to adjust the sleeping times, or we could even do this in the animal class as an abstract method - we can have it so that female lions sleep for 1.5* the length of male lions
+- Sleep Interface with a method for each animal to adjust the sleeping times,
+ or we could even do this in the animal class as an abstract method - we can have it so that female lions sleep for 1.5* the length of male lions
+
+ - Lion sleep during hours 17 to 24
+
 - We can make elephants only move every 2 steps? - Maybe.
 - we can have a fighting mechnaisim between cheetah and Lion - so during certain times of day they may be able to kill eachother.
 - Plant Grass, Plant PoisonBerries - the poison berries make you sleep.

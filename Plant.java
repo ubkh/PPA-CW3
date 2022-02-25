@@ -1,29 +1,40 @@
 import java.util.List;
 
-public abstract class Plant extends Organism {
+public abstract class Plant extends Organism implements Growable {
 
-    public Plant(boolean randomAge, Field field, Location location) {
+    private double size;
+
+    public Plant(double size, boolean randomAge, Field field, Location location) {
         super(randomAge, field, location);
 
+        this.size = size;
     }
 
     @Override
-    public void act(List<Entity> newOrganisms) {
+    abstract public void act(List<Entity> newPlants, Weather weather, TimeOfDay time);
 
+    // Grow at given rate.
+    @Override
+    public void grow() {
+        size = size*getGrowthRate() > getMaxSize() ? 1 : size*getGrowthRate();
     }
+
+    abstract public double getGrowthRate();
+
+    abstract public double getMaxSize();
 
     @Override
-    public double getBreedingProbability() {
-        return 0;
-    }
+    abstract public double getBreedingProbability();
 
     @Override
-    public int getMaxLitterSize() {
-        return 0;
-    }
+    abstract public int getMaxLitterSize();
 
     @Override
     protected boolean canBreed() {
-        return false;
+        return getAge() >= getBreedingAge();
+    }
+
+    public double getSize() {
+        return this.size;
     }
 }

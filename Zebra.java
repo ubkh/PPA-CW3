@@ -29,12 +29,17 @@ public class Zebra extends Prey {
     }
 
     @Override
+    public int getBreedingAge() {
+        return BREEDING_AGE;
+    }
+
+    @Override
     protected Organism createNewOrganism(Field field, Location location) {
         return new Zebra(DEFAULT_FOOD_VALUE, true, field, location);
     }
 
     @Override
-    public void act(List<Entity> newZebras) {
+    public void act(List<Entity> newZebras, Weather weather, TimeOfDay time) {
         incrementAge();
         if(isAlive()) {
             giveBirth(newZebras);
@@ -53,7 +58,7 @@ public class Zebra extends Prey {
 
     @Override
     public boolean canBreed() {
-        if (getAge() < BREEDING_AGE) {
+        if (getAge() < getBreedingAge()) {
             return false;
         }
 

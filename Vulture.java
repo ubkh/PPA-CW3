@@ -27,13 +27,18 @@ public class Vulture extends Scavenger {
     }
 
     @Override
+    public int getBreedingAge() {
+        return BREEDING_AGE;
+    }
+
+    @Override
     protected Organism createNewOrganism(Field field, Location location) {
         return new Vulture(DEFAULT_FOOD_LEVEL, true, field, location);
     }
 
     @Override
     public boolean canBreed() {
-        if (getAge() < BREEDING_AGE) {
+        if (getAge() < getBreedingAge()) {
             return false;
         }
 

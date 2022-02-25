@@ -15,7 +15,7 @@ public abstract class Predator extends Animal implements AbleToEat {
     }
 
     @Override
-    abstract public void act(List<Entity> newPredators);
+    abstract public void act(List<Entity> newPredators, Weather weather, TimeOfDay time);
 
     public Location findFood() {
         Field field = getField();
@@ -23,6 +23,7 @@ public abstract class Predator extends Animal implements AbleToEat {
         Iterator<Location> it = adjacent.iterator();
         while(it.hasNext()) {
             Location where = it.next();
+
             Object animal = field.getObjectAt(where);
             if(animal instanceof Prey) {
                 Prey prey = (Prey) animal;
@@ -35,6 +36,7 @@ public abstract class Predator extends Animal implements AbleToEat {
                     // NOTE: ONLY RETURN WHERE IF EATEN
                     // random chance to eat
                     boolean eaten = eatOrLeave(prey);
+
                     //return where;
                     return eaten ? where : null;
                 }
@@ -76,10 +78,10 @@ public abstract class Predator extends Animal implements AbleToEat {
         if (rand.nextDouble() <= getEatingProbability()) {
             incrementFoodLevel(prey.getFoodValue());
             prey.setEaten();
-            System.out.println("EATEN PREY");
+            //System.out.println("EATEN PREY");
             return true;
         } else {
-            System.out.println("LEFT PREY");
+            //System.out.println("LEFT PREY");
             return false;
         }
     }

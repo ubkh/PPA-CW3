@@ -3,16 +3,15 @@ import java.util.List;
 public class Lion extends Predator {
 
     private static final double BREEDING_PROBABILITY = 0.12;
-    private static final double EATING_PROBABILITY = 0.3;
-    private static final int MAX_LITTER_SIZE = 3;
+    private static final double EATING_PROBABILITY = 0.6;
+    private static final int MAX_LITTER_SIZE = 2;
     private static final int BREEDING_AGE = 10;
-    private static final int MAX_AGE = 150;
+    private static final int MAX_AGE = 130;
 
     private static final int DEFAULT_FOOD_LEVEL = 10;
 
     public Lion(int foodLevel, boolean randomAge, Field field, Location location) {
         super(foodLevel, randomAge, field, location);
-
     }
 
     @Override
@@ -31,22 +30,32 @@ public class Lion extends Predator {
     }
 
     @Override
+    public int getBreedingAge() {
+        return BREEDING_AGE;
+    }
+
+    @Override
     protected Organism createNewOrganism(Field field, Location location) {
         return new Lion(DEFAULT_FOOD_LEVEL, true, field, location);
     }
 
     @Override
-    public void act(List<Entity> newPredators) {
+    public void act(List<Entity> newPredators, Weather weather, TimeOfDay time) {
         incrementAge();
         incrementHunger();
         if(isAlive()) {
+
             giveBirth(newPredators);
+
             // Move towards a source of food if found.
             Location newLocation = findFood();
+            //System.out.println(getEnvironment().getField());
+
             if(newLocation == null) {
                 // No food found - try to move to a free location.
                 newLocation = getField().freeAdjacentLocation(getLocation());
             }
+
             // See if it was possible to move.
             if(newLocation != null) {
                 setLocation(newLocation);
@@ -66,7 +75,7 @@ public class Lion extends Predator {
 
     @Override
     public boolean canBreed() {
-        if (getAge() < BREEDING_AGE) {
+        if (getAge() < getBreedingAge()) {
             return false;
         }
 

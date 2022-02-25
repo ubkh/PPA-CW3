@@ -143,7 +143,7 @@ public class SimulatorView extends JFrame
         return stats.isViable(field);
     }
 
-    public void setUpTimeLabel(int day, int hour){
+    public void updateTimeLabel(int day, int hour){
         timeLabel.setText(TIME_DAY_PREFIX + (day) + " " + TIME_HOUR_PREFIX + (hour));
     }
     

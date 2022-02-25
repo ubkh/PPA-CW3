@@ -33,9 +33,13 @@ public class Simulator
     private int step;
     // A graphical view of the simulation.
     private SimulatorView view;
-    //The current hour of the simulation.
+    // The current hour of the simulation.
     private int hour;
-    
+    // Indicates current state of time in the simulation.
+    private TimeOfDay currentTime;
+
+    private Weather currentWeather;
+
     /**
      * Construct a simulation field with default size.
      */
@@ -109,13 +113,10 @@ public class Simulator
             Entity entity = it.next();
             Animal animal = (Animal) entity;
 
-            animal.act(newAnimals);
+            animal.act(newAnimals, currentWeather, currentTime);
             if(! animal.isAlive()) {
                 it.remove();
             }
-//            if(! animal.exists()) {
-//                it.remove();
-//            }
         }
                
         // Add the newly born foxes and rabbits to the main lists.
@@ -126,7 +127,21 @@ public class Simulator
 
 
         view.showStatus(step, field);
-        view.setUpTimeLabel(day,hour);
+        view.updateTimeLabel(day,hour);
+
+        // every hour
+        if (step % 5 == 0) {
+            currentWeather.generate();
+            System.out.println("HOUR " + hour);
+            System.out.println(currentWeather.getType());
+        }
+
+        // update time
+        if ((hour % 4 == 0) && (step % 5 == 0)) {
+            //System.out.println("HOUR " + hour);
+            currentTime = currentTime.next();
+            //System.out.println(currentTime);
+        }
     }
 
     public int getHour() {
@@ -139,6 +154,10 @@ public class Simulator
     public void reset()
     {
         step = 0;
+
+        currentTime = TimeOfDay.SUNRISE;
+        currentWeather = new Weather(WeatherType.SUN); // make this random at start
+
         animals.clear();
         populate();
         

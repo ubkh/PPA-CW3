@@ -12,7 +12,7 @@ public abstract class Scavenger extends Animal implements AbleToEat {
     }
 
     @Override
-    public void act(List<Entity> newScavengers) {
+    public void act(List<Entity> newScavengers, Weather weather, TimeOfDay time) {
         incrementAge();
         incrementHunger();
         if(isAlive()) {
@@ -23,6 +23,7 @@ public abstract class Scavenger extends Animal implements AbleToEat {
                 // No food found - try to move to a free location.
                 newLocation = getField().freeAdjacentLocation(getLocation());
             }
+
             // See if it was possible to move.
             if(newLocation != null) {
                 setLocation(newLocation);

@@ -9,13 +9,10 @@ public abstract class Organism implements Entity {
 
     private int age;
 
-    private boolean exists;
-
     private static final Random rand = Randomizer.getRandom();
 
     public Organism(boolean randomAge, Field field, Location location) {
         alive = true;
-        exists = true;
         this.field = field;
         setLocation(location);
 
@@ -27,7 +24,7 @@ public abstract class Organism implements Entity {
     }
 
     @Override
-    abstract public void act(List<Entity> newOrganisms);
+    abstract public void act(List<Entity> newOrganisms, Weather weather, TimeOfDay time);
 
     /**
      * Check whether the animal is alive or not.
@@ -38,14 +35,6 @@ public abstract class Organism implements Entity {
         return alive;
     }
 
-    public boolean exists() {
-        return this.exists;
-    }
-
-    protected void setExists(boolean exists) {
-        this.exists = exists;
-    }
-
     /**
      * Removes the current organism from the field.
      */
@@ -54,9 +43,8 @@ public abstract class Organism implements Entity {
         if(location != null) {
             field.clear(location);
             location = null;
-            field = null;
+            //setField(null);
         }
-        exists = false;
     }
 
     /**
@@ -108,6 +96,8 @@ public abstract class Organism implements Entity {
     abstract public int getMaxLitterSize();
 
     abstract public int getMaxAge();
+
+    abstract public int getBreedingAge();
 
     protected int breed() {
         int births = 0;
@@ -165,4 +155,5 @@ public abstract class Organism implements Entity {
     protected void setField(Field field) {
         this.field = field;
     }
+
 }

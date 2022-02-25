@@ -14,7 +14,7 @@ public abstract class Animal extends Organism {
     }
 
     @Override
-    abstract public void act(List<Entity> newAnimals);
+    abstract public void act(List<Entity> newAnimals, Weather weather, TimeOfDay time);
 
     @Override
     abstract protected boolean canBreed();

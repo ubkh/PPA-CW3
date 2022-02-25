@@ -11,7 +11,7 @@ public abstract class Prey extends Animal {
     }
 
     @Override
-    abstract public void act(List<Entity> newPrey);
+    abstract public void act(List<Entity> newPrey, Weather weather, TimeOfDay time);
 
     @Override
     abstract public boolean canBreed();
@@ -22,7 +22,6 @@ public abstract class Prey extends Animal {
             setLocationToNull();
             setField(null);
         }
-        setExists(false);
     }
 
     protected int getFoodValue() {
