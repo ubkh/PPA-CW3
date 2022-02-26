@@ -21,3 +21,8 @@ probability)
 - Plant Grass, Plant PoisonBerries - the poison berries make you sleep.
 
 - At the end you could have a stats window (perhaps use the same code from assignment 1)
+
+
+
+- Stop when animals dead, not all organisms
+- Count only animals alive in population, not dead ones

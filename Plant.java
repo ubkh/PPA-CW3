@@ -1,13 +1,15 @@
 import java.util.List;
 
-public abstract class Plant extends Organism implements Growable {
+public abstract class Plant extends Organism implements Growable, Consumable {
 
     private double size;
+    private final int foodValue;
 
-    public Plant(double size, boolean randomAge, Field field, Location location) {
+    public Plant(int foodValue, double size, boolean randomAge, Field field, Location location) {
         super(randomAge, field, location);
 
         this.size = size;
+        this.foodValue = foodValue;
     }
 
     @Override
@@ -36,5 +38,19 @@ public abstract class Plant extends Organism implements Growable {
 
     public double getSize() {
         return this.size;
+    }
+
+    @Override
+    public int getFoodValue() {
+        return this.foodValue;
+    }
+
+    @Override
+    public void setEaten() {
+        if(getLocation() != null) {
+            getField().clear(getLocation());
+            setLocationToNull();
+            setField(null);
+        }
     }
 }

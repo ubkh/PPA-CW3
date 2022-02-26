@@ -1,11 +1,11 @@
 import java.util.List;
 
-public abstract class Prey extends Animal {
+public abstract class Prey extends Animal implements Consumable {
 
     private final int foodValue;
 
-    public Prey(int foodValue, boolean randomAge, Field field, Location location) {
-        super(randomAge, field, location);
+    public Prey(int foodValue, int foodLevel, boolean randomAge, Field field, Location location) {
+        super(foodLevel, randomAge, field, location);
 
         this.foodValue = foodValue;
     }
@@ -16,7 +16,8 @@ public abstract class Prey extends Animal {
     @Override
     abstract public boolean canBreed();
 
-    protected void setEaten() {
+    @Override
+    public void setEaten() {
         if(getLocation() != null) {
             getField().clear(getLocation());
             setLocationToNull();
@@ -24,7 +25,9 @@ public abstract class Prey extends Animal {
         }
     }
 
-    protected int getFoodValue() {
+    @Override
+    public int getFoodValue() {
         return this.foodValue;
     }
+
 }

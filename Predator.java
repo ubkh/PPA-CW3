@@ -2,21 +2,18 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-public abstract class Predator extends Animal implements AbleToEat {
-
-    private int foodLevel;
+public abstract class Predator extends Animal {
 
     private Random rand = new Random();
 
     public Predator(int foodLevel, boolean randomAge, Field field, Location location) {
-        super(randomAge, field, location);
-
-        this.foodLevel = foodLevel;
+        super(foodLevel, randomAge, field, location);
     }
 
     @Override
     abstract public void act(List<Entity> newPredators, Weather weather, TimeOfDay time);
 
+    @Override
     public Location findFood() {
         Field field = getField();
         List<Location> adjacent = field.adjacentLocations(getLocation());
@@ -35,7 +32,7 @@ public abstract class Predator extends Animal implements AbleToEat {
                     prey.setDead();
                     // NOTE: ONLY RETURN WHERE IF EATEN
                     // random chance to eat
-                    boolean eaten = eatOrLeave(prey);
+                    boolean eaten = eat(prey);
 
                     //return where;
                     return eaten ? where : null;
@@ -45,39 +42,13 @@ public abstract class Predator extends Animal implements AbleToEat {
         return null;
     }
 
-    /**
-     * Make this predator more hungry. This could result in the predator's death.
-     */
-    @Override
-    public void incrementHunger() {
-        //if (isAlive()) {
-            foodLevel--;
-            if (foodLevel <= 0) {
-                remove();
-            }
-        //}
-    }
-
-    protected int getFoodLevel() {
-        return this.foodLevel;
-    }
-
-    protected void setFoodLevel(int level) {
-        this.foodLevel = level;
-    }
-
-    @Override
-    public void incrementFoodLevel(int foodLevel) {
-        this.foodLevel += foodLevel;
-    }
-
     abstract public double getEatingProbability();
 
     @Override
-    public boolean eatOrLeave(Prey prey) {
+    public boolean eat(Consumable consumable) {
         if (rand.nextDouble() <= getEatingProbability()) {
-            incrementFoodLevel(prey.getFoodValue());
-            prey.setEaten();
+            incrementFoodLevel(consumable.getFoodValue());
+            consumable.setEaten();
             //System.out.println("EATEN PREY");
             return true;
         } else {

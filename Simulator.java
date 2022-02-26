@@ -19,14 +19,16 @@ public class Simulator
     // The default depth of the grid.
     private static final int DEFAULT_DEPTH = 80;
     // The probability that a fox will be created in any given grid position.
-    private static final double LION_CREATION_PROBABILITY = 0.04;
+    private static final double LION_CREATION_PROBABILITY = 0.06;
     // The probability that a rabbit will be created in any given grid position.
-    private static final double ZEBRA_CREATION_PROBABILITY = 0.07;
+    private static final double ZEBRA_CREATION_PROBABILITY = 0.2;
 
-    private static final double VULTURE_CREATION_PROBABILITY = 0.06;
+    private static final double VULTURE_CREATION_PROBABILITY = 0.05;
 
-    // List of animals in the field.
-    private List<Entity> animals;
+    private static final double GRASS_CREATION_PROBABILITY = 0.02;
+
+    // List of organisms in the field.
+    private List<Entity> organisms;
     // The current state of the field.
     private Field field;
     // The current step of the simulation.
@@ -62,7 +64,7 @@ public class Simulator
             width = DEFAULT_WIDTH;
         }
         
-        animals = new ArrayList<>();
+        organisms = new ArrayList<>();
         field = new Field(depth, width);
 
         // Create a view of the state of each location in the field.
@@ -70,6 +72,7 @@ public class Simulator
         view.setColor(Zebra.class, Color.BLUE);
         view.setColor(Lion.class, Color.RED);
         view.setColor(Vulture.class, Color.ORANGE);
+        view.setColor(Grass.class, Color.GREEN);
         
         // Setup a valid starting point
         reset();
@@ -106,21 +109,21 @@ public class Simulator
     {
         step++;
 
-        // Provide space for newborn animals.
-        List<Entity> newAnimals = new ArrayList<>();
+        // Provide space for newborn organisms.
+        List<Entity> neworganisms = new ArrayList<>();
         // Let all rabbits act.
-        for(Iterator<Entity> it = animals.iterator(); it.hasNext(); ) {
+        for(Iterator<Entity> it = organisms.iterator(); it.hasNext(); ) {
             Entity entity = it.next();
-            Animal animal = (Animal) entity;
+            Organism organism = (Organism) entity;
 
-            animal.act(newAnimals, currentWeather, currentTime);
-            if(! animal.isAlive()) {
+            organism.act(neworganisms, currentWeather, currentTime);
+            if(! organism.isAlive()) {
                 it.remove();
             }
         }
                
         // Add the newly born foxes and rabbits to the main lists.
-        animals.addAll(newAnimals);
+        organisms.addAll(neworganisms);
 
         int day = step/120 +1;
         hour = (step/5) % 24 + 1;
@@ -129,7 +132,7 @@ public class Simulator
         view.showStatus(step, field);
         view.updateTimeLabel(day,hour);
 
-        // every hour
+        // every hour, generate new weather if we are done with current weather
         if (step % 5 == 0) {
             currentWeather.generate();
             System.out.println("HOUR " + hour);
@@ -158,7 +161,7 @@ public class Simulator
         currentTime = TimeOfDay.SUNRISE;
         currentWeather = new Weather(WeatherType.SUN); // make this random at start
 
-        animals.clear();
+        organisms.clear();
         populate();
         
         // Show the starting state in the view.
@@ -177,17 +180,22 @@ public class Simulator
                 if(rand.nextDouble() <= LION_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
                     Lion lion = new Lion(15, true, field, location);
-                    animals.add(lion);
+                    organisms.add(lion);
                 }
                 else if(rand.nextDouble() <= ZEBRA_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
-                    Zebra zebra = new Zebra(1, true, field, location);
-                    animals.add(zebra);
+                    Zebra zebra = new Zebra(1, 15, true, field, location);
+                    organisms.add(zebra);
                 }
                 else if(rand.nextDouble() <= VULTURE_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
                     Vulture vulture = new Vulture(15, true, field, location);
-                    animals.add(vulture);
+                    organisms.add(vulture);
+                }
+                else if(rand.nextDouble() <= GRASS_CREATION_PROBABILITY) {
+                    Location location = new Location(row, col);
+                    Grass grass = new Grass(1, 1, true, field, location);
+                    organisms.add(grass);
                 }
                 // else leave the location empty.
             }

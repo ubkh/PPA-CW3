@@ -3,7 +3,8 @@ public interface AbleToEat {
 
     Location findFood();
 
-    boolean eatOrLeave(Prey animal);
+    // NOTE: eat() only returns true if the consumable was actually eaten
+    boolean eat(Consumable consumable);
 
     // will become common amongst all ANIMALS
     void incrementHunger();

@@ -3,12 +3,8 @@ import java.util.List;
 
 public abstract class Scavenger extends Animal implements AbleToEat {
 
-    private int foodLevel;
-
     public Scavenger(int foodLevel, boolean randomAge, Field field, Location location) {
-        super(randomAge, field, location);
-
-        this.foodLevel = foodLevel;
+        super(foodLevel, randomAge, field, location);
     }
 
     @Override
@@ -49,7 +45,7 @@ public abstract class Scavenger extends Animal implements AbleToEat {
                 // eats animal if dead only
                 if (!prey.isAlive()) {
                     //System.out.println("EATEN DEAD");
-                    eatOrLeave(prey);
+                    eat(prey);
                     return where;
                 }
             }
@@ -58,32 +54,11 @@ public abstract class Scavenger extends Animal implements AbleToEat {
     }
 
     @Override
-    public boolean eatOrLeave(Prey prey) {
+    public boolean eat(Consumable consumable) {
         // the scavenger does not leave its prey
-        prey.setEaten();
-        incrementFoodLevel(prey.getFoodValue());
+        consumable.setEaten();
+        incrementFoodLevel(consumable.getFoodValue());
         return true;
-    }
-
-    @Override
-    public void incrementHunger() {
-        foodLevel--;
-        if (foodLevel <= 0) {
-            remove();
-        }
-    }
-
-    public int getFoodLevel() {
-        return this.foodLevel;
-    }
-
-    public void setFoodLevel(int level) {
-        this.foodLevel = level;
-    }
-
-    @Override
-    public void incrementFoodLevel(int foodLevel) {
-        this.foodLevel += foodLevel;
     }
 
     @Override
