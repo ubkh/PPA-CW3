@@ -2,7 +2,7 @@ import java.util.List;
 
 public class Grass extends Plant {
 
-    private static final double GROWTH_RATE = 0.2;
+    private static final double GROWTH_RATE = 1.2;
     private static final double MAX_SIZE = 10.0;
     private static final int MAX_AGE = 20;
     private static final int BREEDING_AGE = 16;

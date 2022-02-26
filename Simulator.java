@@ -19,11 +19,16 @@ public class Simulator
     // The default depth of the grid.
     private static final int DEFAULT_DEPTH = 80;
     // The probability that a fox will be created in any given grid position.
-    private static final double LION_CREATION_PROBABILITY = 0.06;
+    private static final double LION_CREATION_PROBABILITY = 0.03;
     // The probability that a rabbit will be created in any given grid position.
-    private static final double ZEBRA_CREATION_PROBABILITY = 0.2;
+    private static final double ZEBRA_CREATION_PROBABILITY = 0.1;
 
-    private static final double VULTURE_CREATION_PROBABILITY = 0.05;
+    private static final double VULTURE_CREATION_PROBABILITY = 0.025;
+
+    private static final double ELEPHANT_CREATION_PROBABILITY = 0.025;
+    private static final double CHEETAH_CREATION_PROBABILITY = 0.03;
+    private static final double GOAT_CREATION_PROBABILITY = 0.025;
+
 
     private static final double GRASS_CREATION_PROBABILITY = 0.02;
 
@@ -73,7 +78,10 @@ public class Simulator
         view.setColor(Lion.class, Color.RED);
         view.setColor(Vulture.class, Color.ORANGE);
         view.setColor(Grass.class, Color.GREEN);
-        
+        view.setColor(Goat.class, Color.PINK);
+        view.setColor(Elephant.class, Color.GRAY);
+        view.setColor(Cheetah.class, Color.MAGENTA);
+
         // Setup a valid starting point
         reset();
     }
@@ -96,7 +104,7 @@ public class Simulator
     {
         for(int step = 1; step <= numSteps && view.isViable(field); step++) {
             simulateOneStep();
-            delay(60);   // uncomment this to run more slowly
+            delay(180);   // uncomment this to run more slowly
         }
     }
     
@@ -196,6 +204,21 @@ public class Simulator
                     Location location = new Location(row, col);
                     Grass grass = new Grass(1, 1, true, field, location);
                     organisms.add(grass);
+                }
+                else if(rand.nextDouble() <= GOAT_CREATION_PROBABILITY) {
+                    Location location = new Location(row, col);
+                    Goat goat = new Goat(1, 15, true, field, location);
+                    organisms.add(goat);
+                }
+                else if(rand.nextDouble() <= ELEPHANT_CREATION_PROBABILITY) {
+                    Location location = new Location(row, col);
+                    Elephant elephant = new Elephant(1, 15, true, field, location);
+                    organisms.add(elephant);
+                }
+                else if(rand.nextDouble() <= CHEETAH_CREATION_PROBABILITY) {
+                    Location location = new Location(row, col);
+                    Cheetah cheetah = new Cheetah(15, true, field, location);
+                    organisms.add(cheetah);
                 }
                 // else leave the location empty.
             }

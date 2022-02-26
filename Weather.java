@@ -31,6 +31,7 @@ public class Weather {
 
         this.hours = rand.nextInt(MAX_HOURS);
 
+        // Switch statements can't be used here due to double accuracy rules.
         if (rand.nextDouble() <= SUN_PROBABILITY) {
             type = WeatherType.SUN;
         } else if (rand.nextDouble() <= RAIN_PROBABILITY) {
