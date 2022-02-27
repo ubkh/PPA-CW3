@@ -82,7 +82,7 @@ public class Simulator
     {
         for(int step = 1; step <= numSteps && view.isViable(field); step++) {
             simulateOneStep();
-            delay(180);   // uncomment this to run more slowly
+            delay(60);   // uncomment this to run more slowly
         }
     }
     
@@ -103,7 +103,10 @@ public class Simulator
             Organism organism = (Organism) entity;
 
             organism.act(newOrganisms, currentWeather, currentTime);
-            if(! organism.isAlive()) {
+//            if(! organism.isAlive()) {
+//                it.remove();
+//            }
+            if(organism.isRemoved()) {
                 it.remove();
             }
         }

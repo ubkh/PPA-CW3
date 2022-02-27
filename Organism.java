@@ -4,6 +4,7 @@ import java.util.Random;
 public abstract class Organism implements Entity {
 
     private boolean alive;
+    private boolean removed;
     private Field field;
     private Location location;
     private int howLongDead;
@@ -13,8 +14,9 @@ public abstract class Organism implements Entity {
     private static final Random rand = Randomizer.getRandom();
 
     public Organism(boolean randomAge, Field field, Location location) {
-        howLongDead = 0;
+        this.howLongDead = 0;
         alive = true;
+        removed = false;
         this.field = field;
         setLocation(location);
 
@@ -45,8 +47,13 @@ public abstract class Organism implements Entity {
         if(location != null) {
             field.clear(location);
             location = null;
-            //setField(null);
+            setField(null);
         }
+        removed = true;
+    }
+
+    public boolean isRemoved() {
+        return removed;
     }
 
     /**
@@ -164,13 +171,17 @@ public abstract class Organism implements Entity {
      * Remove the organism from the field after being dead for 10 steps and not being eaten.
      */
     protected void decayifDead() {
-        if (!alive) {
-            howLongDead++;
-        }
-        if (howLongDead > 10){
+        //if (!isAlive()) {
+        this.howLongDead++;
+        System.out.println("DEAD FOR " + this.howLongDead);
+        //System.out.println("DEAD INCREMENT");
+        if (this.howLongDead > 40){
             remove();
+            System.out.println("FULLY DECAYED");
         }
-        System.out.println("DECAY");
+        //}
+        //System.out.println("DEAD FOR " + howLongDead);
+
     }
 
     protected Random getRandom() {

@@ -52,7 +52,6 @@ public class Zebra extends Prey {
     public void act(List<Entity> newZebras, Weather weather, TimeOfDay time) {
         incrementAge();
 
-        decayifDead();
         if(isAlive()) {
             giveBirth(newZebras);
             // Try to move into a free location.
@@ -78,6 +77,8 @@ public class Zebra extends Prey {
                 //setDead();
                 remove();
             }
+        } else {
+            decayifDead();
         }
     }
 
