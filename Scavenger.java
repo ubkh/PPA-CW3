@@ -15,6 +15,12 @@ public abstract class Scavenger extends Animal implements AbleToEat {
         incrementHunger();
         if(isAlive()) {
             giveBirth(newScavengers);
+
+            if (getRandom().nextDouble() <= getDeathByDiseaseProbability() ) {
+                remove();
+                return;
+            }
+
             // Move towards a source of food if found.
             Location newLocation;
 

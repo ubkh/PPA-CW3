@@ -146,15 +146,12 @@ public abstract class Organism implements Entity {
      */
     protected void incrementAge()
     {
-        if (isAlive()) {
-            age++;
+        age++;
 
-            if (age > getMaxAge()) {
-                //setDead();
-                remove();
-            }
+        if (age > getMaxAge()) {
+            //setDead();
+            remove();
         }
-
     }
 
     protected int getAge() {
@@ -173,11 +170,11 @@ public abstract class Organism implements Entity {
     protected void decayifDead() {
         //if (!isAlive()) {
         this.howLongDead++;
-        System.out.println("DEAD FOR " + this.howLongDead);
+        //System.out.println("DEAD FOR " + this.howLongDead);
         //System.out.println("DEAD INCREMENT");
         if (this.howLongDead > 40){
             remove();
-            System.out.println("FULLY DECAYED");
+            //System.out.println("FULLY DECAYED");
         }
         //}
         //System.out.println("DEAD FOR " + howLongDead);

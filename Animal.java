@@ -78,4 +78,6 @@ public abstract class Animal extends Organism implements AbleToEat {
     }
 
     abstract protected double getDiseaseSpreadProbability();
+
+    abstract protected double getDeathByDiseaseProbability();
 }

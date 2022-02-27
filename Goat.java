@@ -44,6 +44,11 @@ public class Goat extends Prey {
     }
 
     @Override
+    protected double getDeathByDiseaseProbability() {
+        return DEATH_BY_DISEASE_PROBABILITY;
+    }
+
+    @Override
     protected Organism createNewOrganism(Field field, Location location) {
         return new Goat(DEFAULT_FOOD_VALUE, true, field, location);
     }
@@ -55,6 +60,12 @@ public class Goat extends Prey {
         decayifDead();
         if(isAlive()) {
             giveBirth(newZebras);
+
+            if (getRandom().nextDouble() <= getDeathByDiseaseProbability() ) {
+                remove();
+                return;
+            }
+
             // Try to move into a free location.
             Location newLocation;
 

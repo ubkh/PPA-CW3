@@ -41,6 +41,11 @@ public class Vulture extends Scavenger {
     }
 
     @Override
+    protected double getDeathByDiseaseProbability() {
+        return DEATH_BY_DISEASE_PROBABILITY;
+    }
+
+    @Override
     protected Organism createNewOrganism(Field field, Location location) {
         return new Vulture(DEFAULT_FOOD_LEVEL, true, field, location);
     }

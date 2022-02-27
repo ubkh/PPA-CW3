@@ -11,8 +11,7 @@ public class Lion extends Predator {
     private static final int DEFAULT_FOOD_LEVEL = 20;
 
     private static final double SPREAD_DISEASE_PROBABILITY = 0.01;
-    private static final double DEATH_BY_DISEASE_PROBABILITY = 0.001;
-    private static final double SPREAD_DISEASE_MATING_PROBABILITY = 0.2;
+    private static final double DEATH_BY_DISEASE_PROBABILITY = 0.01;
 
     public Lion(int foodLevel, boolean randomAge, Field field, Location location) {
         super(foodLevel, randomAge, field, location);
@@ -44,6 +43,11 @@ public class Lion extends Predator {
     }
 
     @Override
+    protected double getDeathByDiseaseProbability() {
+        return DEATH_BY_DISEASE_PROBABILITY;
+    }
+
+    @Override
     protected Organism createNewOrganism(Field field, Location location) {
         return new Lion(DEFAULT_FOOD_LEVEL, true, field, location);
     }
@@ -55,6 +59,11 @@ public class Lion extends Predator {
         if(isAlive()) {
 
             giveBirth(newPredators);
+
+            if (getRandom().nextDouble() <= getDeathByDiseaseProbability() ) {
+                remove();
+                return;
+            }
 
             // Move towards a source of food if found.
             Location newLocation;

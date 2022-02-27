@@ -25,16 +25,9 @@ probability)
 
 - At the end you could have a stats window (perhaps use the same code from assignment 1)
 
-- Stop when animals dead, not all organisms
-- Count only animals alive in population, not dead ones [decay() method does this]
-
-- Have it so that Prey don't have a food level, so they cannot die of hunger,
-but they can still eat grass. - Ubayd tonight
--alongside the decay method it should make the simulation last longer. Omar tonight
 ____________________________________________________________________________________________________________
 
 PRIORITIES
-1. Implement all species
 2. Implement behaviours, incl. weather and time-of-day
 3. Simulate disease
 4. Stats window
