@@ -24,9 +24,11 @@ public class SimulatorView extends JFrame
     private final String STEP_PREFIX = "Step: ";
     private final String TIME_DAY_PREFIX = "Day: ";
     private final String TIME_HOUR_PREFIX = "Hour: ";
+    private final String TIME_OF_DAY_PREFIX = "Time: ";
     private final String POPULATION_PREFIX = "Population: ";
+    private final String WEATHER_PREFIX = "Weather: ";
 
-    private JLabel stepLabel, population, infoLabel, timeLabel;
+    private JLabel stepLabel, population, infoLabel, timeLabel, environmentLabel;
     private FieldView fieldView;
     
     // A map for storing colors for participants in the simulation
@@ -47,6 +49,7 @@ public class SimulatorView extends JFrame
         setTitle("Predator Prey Simulation");
         stepLabel = new JLabel(STEP_PREFIX, JLabel.CENTER);
         timeLabel = new JLabel(" ", JLabel.CENTER);
+        environmentLabel = new JLabel(" ", JLabel.CENTER);
         infoLabel = new JLabel(" ", JLabel.CENTER);
         population = new JLabel(POPULATION_PREFIX, JLabel.CENTER);
         
@@ -58,8 +61,10 @@ public class SimulatorView extends JFrame
         
         JPanel infoPane = new JPanel(new BorderLayout());
             infoPane.add(stepLabel, BorderLayout.WEST);
-            infoPane.add(infoLabel, BorderLayout.CENTER);
+            //infoPane.add(infoLabel, BorderLayout.CENTER);
             infoPane.add(timeLabel, BorderLayout.EAST);
+            infoPane.add(environmentLabel, BorderLayout.CENTER);
+
 
         contents.add(infoPane, BorderLayout.NORTH);
         contents.add(fieldView, BorderLayout.CENTER);
@@ -145,6 +150,10 @@ public class SimulatorView extends JFrame
 
     public void updateTimeLabel(int day, int hour){
         timeLabel.setText(TIME_DAY_PREFIX + (day) + " " + TIME_HOUR_PREFIX + (hour));
+    }
+
+    public void updateEnvironmentLabel(Weather weather, TimeOfDay time) {
+        environmentLabel.setText(WEATHER_PREFIX + weather.getType().toString() + " " + TIME_OF_DAY_PREFIX + time);
     }
     
     /**

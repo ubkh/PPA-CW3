@@ -10,6 +10,10 @@ public class Cheetah extends Predator {
 
     private static final int DEFAULT_FOOD_LEVEL = 10;
 
+    private static final double SPREAD_DISEASE_PROBABILITY = 0.01;
+    private static final double DEATH_BY_DISEASE_PROBABILITY = 0.001;
+    private static final double SPREAD_DISEASE_MATING_PROBABILITY = 0.2;
+
     public Cheetah(int foodLevel, boolean randomAge, Field field, Location location) {
         super(foodLevel, randomAge, field, location);
     }
@@ -35,6 +39,11 @@ public class Cheetah extends Predator {
     }
 
     @Override
+    protected double getDiseaseSpreadProbability() {
+        return SPREAD_DISEASE_PROBABILITY;
+    }
+
+    @Override
     protected Organism createNewOrganism(Field field, Location location) {
         return new Cheetah(DEFAULT_FOOD_LEVEL, true, field, location);
     }
@@ -48,8 +57,13 @@ public class Cheetah extends Predator {
             giveBirth(newPredators);
 
             // Move towards a source of food if found.
-            Location newLocation = findFood();
-            //System.out.println(getEnvironment().getField());
+            Location newLocation;
+
+            if (getRandom().nextDouble() <= getDiseaseSpreadProbability() ) {
+                newLocation = findAnimalToInfect();
+            } else {
+                newLocation = findFood();
+            }
 
             if(newLocation == null) {
                 // No food found - try to move to a free location.

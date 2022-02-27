@@ -2,10 +2,10 @@ import java.util.List;
 
 public abstract class Prey extends Animal implements Consumable {
 
-    private final int foodValue;
+    private int foodValue;
 
-    public Prey(int foodValue, int foodLevel, boolean randomAge, Field field, Location location) {
-        super(foodLevel, randomAge, field, location);
+    public Prey(int foodValue, boolean randomAge, Field field, Location location) {
+        super(randomAge, field, location);
 
         this.foodValue = foodValue;
     }
@@ -30,4 +30,24 @@ public abstract class Prey extends Animal implements Consumable {
         return this.foodValue;
     }
 
+    protected void incrementFoodValue(int foodValue) {
+        this.foodValue += foodValue;
+    }
+
+    @Override
+    public boolean eat(Consumable consumable) {
+        if (consumable.isPoisonous()) {
+            infect(this);
+            System.out.println("INFECTED PREY");
+        }
+        incrementFoodValue(consumable.getFoodValue());
+        consumable.setEaten();
+        return true;
+    }
+
+    // Prey can never be poisonous.
+    @Override
+    public boolean isPoisonous() {
+        return false;
+    }
 }

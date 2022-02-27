@@ -9,10 +9,13 @@ public class Elephant extends Prey {
     private static final int MAX_AGE = 100;
 
     private static final int DEFAULT_FOOD_VALUE = 1;
-    private static final int DEFAULT_FOOD_LEVEL = 15;
 
-    public Elephant(int foodValue, int foodLevel, boolean randomAge, Field field, Location location) {
-        super(foodValue, foodLevel, randomAge, field, location);
+    private static final double SPREAD_DISEASE_PROBABILITY = 0.5;
+    private static final double DEATH_BY_DISEASE_PROBABILITY = 0.001;
+    private static final double SPREAD_DISEASE_MATING_PROBABILITY = 0.2;
+
+    public Elephant(int foodValue, boolean randomAge, Field field, Location location) {
+        super(foodValue, randomAge, field, location);
     }
 
     @Override
@@ -36,14 +39,18 @@ public class Elephant extends Prey {
     }
 
     @Override
+    protected double getDiseaseSpreadProbability() {
+        return SPREAD_DISEASE_PROBABILITY;
+    }
+
+    @Override
     protected Organism createNewOrganism(Field field, Location location) {
-        return new Elephant(DEFAULT_FOOD_VALUE, DEFAULT_FOOD_LEVEL, true, field, location);
+        return new Elephant(DEFAULT_FOOD_VALUE, true, field, location);
     }
 
     @Override
     public void act(List<Entity> newZebras, Weather weather, TimeOfDay time) {
         incrementAge();
-        incrementHunger();
 
         decayifDead();
         if(isAlive()) {
@@ -51,10 +58,15 @@ public class Elephant extends Prey {
             // Try to move into a free location.
             Location newLocation;
 
-            System.out.println("FOOD " + getFoodLevel());
-            if (getFoodLevel() < 10) {
-                newLocation = findFood();
+            if (getRandom().nextDouble() <= getDiseaseSpreadProbability() ) {
+                newLocation = findAnimalToInfect();
             } else {
+                newLocation = findFood();
+            }
+
+            // Random chance to do either?
+
+            if ((newLocation == null) || (getFoodValue() > 10)) {
                 newLocation = getField().freeAdjacentLocation(getLocation());
             }
 
@@ -96,16 +108,16 @@ public class Elephant extends Prey {
             Location where = it.next();
 
             Object organism = field.getObjectAt(where);
-            if(organism instanceof Grass) {
-                Grass grass = (Grass) organism;
+            if(organism instanceof Plant) {
+                Plant plant = (Plant) organism;
                 // kills animal
                 //prey.setDead();
                 //eatOrLeave(prey);
-                if (grass.isAlive()) {
+                if (plant.isAlive()) {
                     //System.out.println("ALIVE");
-                    grass.setDead();
+                    plant.setDead();
                     // NOTE: ONLY RETURN WHERE IF EATEN
-                    boolean eaten = eat(grass);
+                    boolean eaten = eat(plant);
 
                     //return where;
                     return eaten ? where : null;
@@ -113,12 +125,5 @@ public class Elephant extends Prey {
             }
         }
         return null;
-    }
-
-    @Override
-    public boolean eat(Consumable consumable) {
-        incrementFoodLevel(consumable.getFoodValue());
-        consumable.setEaten();
-        return true;
     }
 }

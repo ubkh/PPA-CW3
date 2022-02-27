@@ -1,20 +1,19 @@
+import java.util.Iterator;
 import java.util.List;
 
 public abstract class Animal extends Organism implements AbleToEat {
 
     private final Gender gender;
-    private boolean isAsleep;
+    private boolean asleep;
+    private boolean infected;
 
-    private int foodLevel;
-
-    public Animal(int foodLevel, boolean randomAge, Field field, Location location) {
+    public Animal(boolean randomAge, Field field, Location location) {
         super(randomAge, field, location);
 
         // randomly assign male or female
         this.gender = Gender.getRandom();
-        this.isAsleep = false;
-
-        this.foodLevel = foodLevel;
+        this.asleep = false;
+        this.infected = false;
     }
 
     @Override
@@ -36,36 +35,47 @@ public abstract class Animal extends Organism implements AbleToEat {
     }
 
     protected void setAsleep(boolean asleep) {
-        isAsleep = asleep;
+        this.asleep = asleep;
     }
 
-    protected boolean getIsAsleep() {
-         return isAsleep;
+    protected boolean isAsleep() {
+         return this.asleep;
     }
 
-    protected int getFoodLevel() {
-        return this.foodLevel;
+    protected boolean isInfected() {
+        return this.infected;
     }
 
-    private void setFoodLevel(int level) {
-        this.foodLevel = level;
+    private void setInfected(boolean infected) {
+        this.infected = infected;
     }
 
-    @Override
-    public void incrementFoodLevel(int foodLevel) {
-        this.foodLevel += foodLevel;
+    protected void infect(Animal animal) {
+        animal.setInfected(true);
     }
 
-    /**
-     * Make this animal more hungry. This could result in the animal's death.
-     */
-    @Override
-    public void incrementHunger() {
-        //if (isAlive()) {
-        foodLevel--;
-        if (foodLevel <= 0) {
-            remove();
+    protected Location findAnimalToInfect() {
+        if (!infected) {
+            return null;
         }
-        //}
+
+        Field field = getField();
+        List<Location> adjacent = field.adjacentLocations(getLocation());
+        Iterator<Location> it = adjacent.iterator();
+        while(it.hasNext()) {
+            Location where = it.next();
+
+            Object organism = field.getObjectAt(where);
+            if (organism instanceof Animal) {
+                Animal animal = (Animal) organism;
+                if ((animal.isAlive() && (!animal.isInfected()))) {
+                    infect(animal);
+                    return where;
+                }
+            }
+        }
+        return null;
     }
+
+    abstract protected double getDiseaseSpreadProbability();
 }

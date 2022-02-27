@@ -7,6 +7,10 @@ public class Vulture extends Scavenger {
 
     private static final int DEFAULT_FOOD_LEVEL = 15;
 
+    private static final double SPREAD_DISEASE_PROBABILITY = 0.01;
+    private static final double DEATH_BY_DISEASE_PROBABILITY = 0.001;
+    private static final double SPREAD_DISEASE_MATING_PROBABILITY = 0.2;
+
     public Vulture(int foodLevel, boolean randomAge, Field field, Location location) {
         super(foodLevel, randomAge, field, location);
     }
@@ -29,6 +33,11 @@ public class Vulture extends Scavenger {
     @Override
     public int getBreedingAge() {
         return BREEDING_AGE;
+    }
+
+    @Override
+    protected double getDiseaseSpreadProbability() {
+        return SPREAD_DISEASE_PROBABILITY;
     }
 
     @Override

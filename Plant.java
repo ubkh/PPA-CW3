@@ -4,12 +4,16 @@ public abstract class Plant extends Organism implements Growable, Consumable {
 
     private double size;
     private final int foodValue;
+    private final boolean poisonous;
+    private double growthRate;
+    private double breedingProbability;
 
-    public Plant(int foodValue, double size, boolean randomAge, Field field, Location location) {
+    public Plant(boolean poisonous, int foodValue, double size, boolean randomAge, Field field, Location location) {
         super(randomAge, field, location);
 
         this.size = size;
         this.foodValue = foodValue;
+        this.poisonous = poisonous;
     }
 
     @Override
@@ -17,18 +21,29 @@ public abstract class Plant extends Organism implements Growable, Consumable {
 
     //Grow at given rate.
     @Override
-    public void grow() {size = size*getGrowthRate() > getMaxSize() ? 1 : size*getGrowthRate();}
+    public void grow() {
+        size = size*getGrowthRate() > getMaxSize() ? 1 : size*getGrowthRate();
+        if (size == 0) {
+            remove();
+        }
+    }
 //    @Override
 //    public void grow(double growthRate) {
 //        size = size * growthRate > getMaxSize() ? 1 : size * growthRate;
 //    }
 
-    abstract public double getGrowthRate();
-
-    abstract public double getMaxSize();
+    @Override
+    public double getGrowthRate() {
+        return this.growthRate;
+    }
 
     @Override
-    abstract public double getBreedingProbability();
+    public void setGrowthRate(double rate) {
+        this.growthRate = rate;
+    }
+
+    @Override
+    abstract public double getMaxSize();
 
     @Override
     abstract public int getMaxLitterSize();
@@ -54,5 +69,19 @@ public abstract class Plant extends Organism implements Growable, Consumable {
             setLocationToNull();
             setField(null);
         }
+    }
+
+    @Override
+    public boolean isPoisonous() {
+        return this.poisonous;
+    }
+
+    protected void setBreedingProbability(double probability) {
+        this.breedingProbability = probability;
+    }
+
+    @Override
+    public double getBreedingProbability() {
+        return this.breedingProbability;
     }
 }

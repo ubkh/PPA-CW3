@@ -6,8 +6,12 @@ public abstract class Predator extends Animal {
 
     private Random rand = new Random();
 
+    private int foodLevel;
+
     public Predator(int foodLevel, boolean randomAge, Field field, Location location) {
-        super(foodLevel, randomAge, field, location);
+        super(randomAge, field, location);
+
+        this.foodLevel = foodLevel;
     }
 
     @Override
@@ -59,4 +63,28 @@ public abstract class Predator extends Animal {
 
     @Override
     abstract protected boolean canBreed();
+
+    protected int getFoodLevel() {
+        return this.foodLevel;
+    }
+
+    private void setFoodLevel(int level) {
+        this.foodLevel = level;
+    }
+
+    public void incrementFoodLevel(int foodLevel) {
+        this.foodLevel += foodLevel;
+    }
+
+    /**
+     * Make this animal more hungry. This could result in the animal's death.
+     */
+    public void incrementHunger() {
+        //if (isAlive()) {
+        foodLevel--;
+        if (foodLevel <= 0) {
+            remove();
+        }
+        //}
+    }
 }

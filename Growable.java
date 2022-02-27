@@ -4,6 +4,8 @@ public interface Growable {
 
     double getGrowthRate();
 
+    void setGrowthRate(double rate);
+
     double getMaxSize();
 
     double getSize();

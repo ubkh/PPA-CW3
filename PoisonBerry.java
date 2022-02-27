@@ -1,7 +1,6 @@
 import java.util.List;
-import java.util.Random;
 
-public class Grass extends Plant {
+public class PoisonBerry extends Plant {
 
     private static final double MAX_SIZE = 10.0;
     private static final int MAX_AGE = 20;
@@ -13,8 +12,8 @@ public class Grass extends Plant {
     private static final int DEFAULT_FOOD_VALUE = 5;
     private static final double DEFAULT_GROWTH_RATE = 1.2;
 
-    public Grass(int foodValue, double size, boolean randomAge, Field field, Location location) {
-        super(false, foodValue, size, randomAge, field, location);
+    public PoisonBerry(int foodValue, double size, boolean randomAge, Field field, Location location) {
+        super(true, foodValue, size, randomAge, field, location);
         setGrowthRate(DEFAULT_GROWTH_RATE);
         setBreedingProbability(LOW_BREEDING_PROBABILITY);
     }
@@ -31,11 +30,11 @@ public class Grass extends Plant {
 
     @Override
     protected Organism createNewOrganism(Field field, Location location) {
-        return new Grass(DEFAULT_FOOD_VALUE, DEFAULT_SIZE, true, field, location);
+        return new PoisonBerry(DEFAULT_FOOD_VALUE, DEFAULT_SIZE, true, field, location);
     }
 
     @Override
-    public void act(List<Entity> newGrass, Weather weather, TimeOfDay time) {
+    public void act(List<Entity> newBerries, Weather weather, TimeOfDay time) {
         if (isAlive()) {
             setBreedingProbability(LOW_BREEDING_PROBABILITY);
 //            // only grows in rain
@@ -49,7 +48,7 @@ public class Grass extends Plant {
                 setBreedingProbability(HIGH_BREEDING_PROBABILITY);
             }
             grow();
-            giveBirth(newGrass);
+            giveBirth(newBerries);
         }
     }
 

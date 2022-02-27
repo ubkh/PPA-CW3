@@ -7,7 +7,7 @@ public interface AbleToEat {
     boolean eat(Consumable consumable);
 
     // will become common amongst all ANIMALS
-    void incrementHunger();
+    //void incrementHunger();
     // will become common amongst all ANIMALS
-    void incrementFoodLevel(int foodLevel);
+    //void incrementFoodLevel(int foodLevel);
 }

@@ -170,5 +170,10 @@ public abstract class Organism implements Entity {
         if (howLongDead > 10){
             remove();
         }
+        System.out.println("DECAY");
+    }
+
+    protected Random getRandom() {
+        return rand;
     }
 }
