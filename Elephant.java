@@ -45,6 +45,7 @@ public class Elephant extends Prey {
         incrementAge();
         incrementHunger();
 
+        decayifDead();
         if(isAlive()) {
             giveBirth(newZebras);
             // Try to move into a free location.

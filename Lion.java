@@ -8,7 +8,7 @@ public class Lion extends Predator {
     private static final int BREEDING_AGE = 10;
     private static final int MAX_AGE = 130;
 
-    private static final int DEFAULT_FOOD_LEVEL = 10;
+    private static final int DEFAULT_FOOD_LEVEL = 20;
 
     public Lion(int foodLevel, boolean randomAge, Field field, Location location) {
         super(foodLevel, randomAge, field, location);

@@ -1,4 +1,4 @@
-import java.util.Random;
+import java.util.*;
 
 public class Weather {
 
@@ -10,6 +10,7 @@ public class Weather {
 
     private static final int MAX_HOURS = 3;
 
+    private ArrayList<WeatherType> recentWeather;
     private WeatherType type;
     private int hours;
     private int count;
@@ -18,6 +19,7 @@ public class Weather {
 
     public Weather(WeatherType initialType) {
         this.type = initialType;
+        recentWeather = new ArrayList<>();
     }
 
     public void generate() {
@@ -44,8 +46,21 @@ public class Weather {
             type = WeatherType.STORM;
         }
 
+        //If in the last 4 weathers we had, there was rain or sun, grow at a higher rate.
+
+        //Adds to the end of the list,
+        recentWeather.add(type);
+
+        if (recentWeather.size() == 4){
+            //remove from the start of the list
+            recentWeather.remove(0);
+        }
         count++;
         //return type;
+    }
+
+    public ArrayList<WeatherType> getRecentWeather() {
+        return recentWeather;
     }
 
     public void setType(WeatherType type) {

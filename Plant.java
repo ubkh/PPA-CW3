@@ -15,11 +15,13 @@ public abstract class Plant extends Organism implements Growable, Consumable {
     @Override
     abstract public void act(List<Entity> newPlants, Weather weather, TimeOfDay time);
 
-    // Grow at given rate.
+    //Grow at given rate.
     @Override
-    public void grow() {
-        size = size*getGrowthRate() > getMaxSize() ? 1 : size*getGrowthRate();
-    }
+    public void grow() {size = size*getGrowthRate() > getMaxSize() ? 1 : size*getGrowthRate();}
+//    @Override
+//    public void grow(double growthRate) {
+//        size = size * growthRate > getMaxSize() ? 1 : size * growthRate;
+//    }
 
     abstract public double getGrowthRate();
 
@@ -47,7 +49,7 @@ public abstract class Plant extends Organism implements Growable, Consumable {
 
     @Override
     public void setEaten() {
-        if(getLocation() != null) {
+        if (getLocation() != null) {
             getField().clear(getLocation());
             setLocationToNull();
             setField(null);

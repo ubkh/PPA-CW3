@@ -13,8 +13,13 @@ probability)
 - Plant Grass, Plant PoisonBerries - the poison berries make you sleep.
 
 - Predators can't see well in fog.
+
 - Plants grow slower/ die in snow. They grow in all weather except snow.
 - Size of grass can depend on RECENT rain + sun.
+- Could instead make the size of the grass grow by a larger factor, if there's sun and rain in the past 4 weather types.
+- Ideally what we actually want is more grass to be created
+(override givebirth and the breeding probability (this is final which is an issue)???)
+
 
 - Size influences food value of plant. Size of PoisonBerries influences poison level.
 
@@ -23,7 +28,9 @@ probability)
 - Stop when animals dead, not all organisms
 - Count only animals alive in population, not dead ones [decay() method does this]
 
-
+- Have it so that Prey don't have a food level, so they cannot die of hunger,
+but they can still eat grass. - Ubayd tonight
+-alongside the decay method it should make the simulation last longer. Omar tonight
 ____________________________________________________________________________________________________________
 
 PRIORITIES

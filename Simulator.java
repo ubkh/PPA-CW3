@@ -187,12 +187,12 @@ public class Simulator
             for(int col = 0; col < field.getWidth(); col++) {
                 if(rand.nextDouble() <= LION_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
-                    Lion lion = new Lion(15, true, field, location);
+                    Lion lion = new Lion(20, true, field, location);
                     organisms.add(lion);
                 }
                 else if(rand.nextDouble() <= ZEBRA_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
-                    Zebra zebra = new Zebra(1, 15, true, field, location);
+                    Zebra zebra = new Zebra(5, 15, true, field, location);
                     organisms.add(zebra);
                 }
                 else if(rand.nextDouble() <= VULTURE_CREATION_PROBABILITY) {
@@ -207,12 +207,12 @@ public class Simulator
                 }
                 else if(rand.nextDouble() <= GOAT_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
-                    Goat goat = new Goat(1, 15, true, field, location);
+                    Goat goat = new Goat(5, 20, true, field, location);
                     organisms.add(goat);
                 }
                 else if(rand.nextDouble() <= ELEPHANT_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
-                    Elephant elephant = new Elephant(1, 15, true, field, location);
+                    Elephant elephant = new Elephant(5, 20, true, field, location);
                     organisms.add(elephant);
                 }
                 else if(rand.nextDouble() <= CHEETAH_CREATION_PROBABILITY) {

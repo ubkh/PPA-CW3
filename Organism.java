@@ -6,12 +6,14 @@ public abstract class Organism implements Entity {
     private boolean alive;
     private Field field;
     private Location location;
+    private int howLongDead;
 
     private int age;
 
     private static final Random rand = Randomizer.getRandom();
 
     public Organism(boolean randomAge, Field field, Location location) {
+        howLongDead = 0;
         alive = true;
         this.field = field;
         setLocation(location);
@@ -156,4 +158,17 @@ public abstract class Organism implements Entity {
         this.field = field;
     }
 
+    //TODO: Call this decay method in ALL act methods of the animals we have made.
+
+    /**
+     * Remove the organism from the field after being dead for 10 steps and not being eaten.
+     */
+    protected void decayifDead() {
+        if (!alive) {
+            howLongDead++;
+        }
+        if (howLongDead > 10){
+            remove();
+        }
+    }
 }
