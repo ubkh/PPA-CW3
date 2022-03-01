@@ -42,8 +42,10 @@ public abstract class Prey extends Animal implements Consumable {
 
     @Override
     public boolean eat(Consumable consumable) {
-        if (consumable.isPoisonous()) {
+        if ((consumable.isPoisonous()) && (!isInfected())) {
+            //System.out.println(isInfected());
             infect(this);
+            //setInfected(true);
             //System.out.println("INFECTED PREY");
         }
         incrementFoodValue(consumable.getFoodValue());

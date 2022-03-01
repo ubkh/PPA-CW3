@@ -61,6 +61,7 @@ public class Elephant extends Prey {
         if(isAlive()) {
             giveBirth(newZebras);
 
+
             if (getRandom().nextDouble() <= getDeathByDiseaseProbability() ) {
                 remove();
                 return;

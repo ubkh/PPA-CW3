@@ -46,7 +46,7 @@ public abstract class Animal extends Organism implements AbleToEat {
         return this.infected;
     }
 
-    private void setInfected(boolean infected) {
+    protected void setInfected(boolean infected) {
         this.infected = infected;
     }
 
@@ -54,26 +54,46 @@ public abstract class Animal extends Organism implements AbleToEat {
         animal.setInfected(true);
     }
 
+//    protected void catchInfection() {
+//        if ((getRandom().nextDouble() <= 0.01) && (!isInfected())) {
+//            System.out.println("CAUGHT INFECTION");
+//            infect(this);
+//        }
+//    }
+
     protected Location findAnimalToInfect() {
         if (!infected) {
             return null;
         }
 
-        Field field = getField();
-        List<Location> adjacent = field.adjacentLocations(getLocation());
-        Iterator<Location> it = adjacent.iterator();
-        while(it.hasNext()) {
-            Location where = it.next();
-
-            Object organism = field.getObjectAt(where);
+        for (Location loc : getField().adjacentLocations(getLocation())) {
+            Object organism = getField().getObjectAt(loc);
             if (organism instanceof Animal) {
                 Animal animal = (Animal) organism;
-                if ((animal.isAlive() && (!animal.isInfected()))) {
-                    infect(animal);
-                    return where;
+                if (animal.isAlive() && (!animal.isInfected())) {
+                    if (getRandom().nextDouble() <= 0.01) {
+                        infect(animal);
+                    }
+                    return loc;
                 }
             }
         }
+
+//        Field field = getField();
+//        List<Location> adjacent = field.adjacentLocations(getLocation());
+//        Iterator<Location> it = adjacent.iterator();
+//        while(it.hasNext()) {
+//            Location where = it.next();
+//
+//            Object organism = field.getObjectAt(where);
+//            if (organism instanceof Animal) {
+//                Animal animal = (Animal) organism;
+//                if ((animal.isAlive() && (!animal.isInfected()))) {
+//                    //infect(animal);
+//                    return where;
+//                }
+//            }
+//        }
         return null;
     }
 
