@@ -8,10 +8,10 @@ public class Cheetah extends Predator {
     private static final int BREEDING_AGE = 10;
     private static final int MAX_AGE = 130;
 
-    private static final int DEFAULT_FOOD_LEVEL = 10;
+    private static final int DEFAULT_FOOD_LEVEL = 15;
 
     private static final double SPREAD_DISEASE_PROBABILITY = 0.01;
-    private static final double DEATH_BY_DISEASE_PROBABILITY = 0.001;
+    private static final double DEATH_BY_DISEASE_PROBABILITY = 0.01;
 
     public Cheetah(int foodLevel, boolean randomAge, Field field, Location location) {
         super(foodLevel, randomAge, field, location);
@@ -59,6 +59,11 @@ public class Cheetah extends Predator {
         if(isAlive()) {
 
             giveBirth(newPredators);
+
+            //Only call givebirth method if its a certain time of day for this animal.
+            if (time == TimeOfDay.EARLY_AFTERNOON){
+                return;
+            }
 
             if (getRandom().nextDouble() <= getDeathByDiseaseProbability() ) {
                 remove();

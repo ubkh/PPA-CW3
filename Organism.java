@@ -165,6 +165,7 @@ public abstract class Organism implements Entity {
     //TODO: Call this decay method in ALL act methods of the animals we have made.
 
     /**
+     * Prevents overcrowding of dead animals
      * Remove the organism from the field after being dead for 10 steps and not being eaten.
      */
     protected void decayifDead() {

@@ -8,7 +8,7 @@ public class Lion extends Predator {
     private static final int BREEDING_AGE = 10;
     private static final int MAX_AGE = 130;
 
-    private static final int DEFAULT_FOOD_LEVEL = 20;
+    private static final int DEFAULT_FOOD_LEVEL = 15;
 
     private static final double SPREAD_DISEASE_PROBABILITY = 0.01;
     private static final double DEATH_BY_DISEASE_PROBABILITY = 0.01;
@@ -59,6 +59,13 @@ public class Lion extends Predator {
         if(isAlive()) {
 
             giveBirth(newPredators);
+
+            //Only call givebirth method if its "night time" for the lion.
+            //TODO: We could make the below three lines of code into an abstract method in Predator
+            //TODO: class, or we could make it a SLEEP interface
+            if (time == TimeOfDay.NIGHT){
+                return;
+            }
 
             if (getRandom().nextDouble() <= getDeathByDiseaseProbability() ) {
                 remove();

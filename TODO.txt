@@ -29,5 +29,13 @@ ________________________________________________________________________________
 
 PRIORITIES
 1. Implement behaviours, incl. weather and time-of-day
+
+- Predators - lion and cheetah, and vulture(scavenger), could refactor as a sleep interface
+- added prey field activeness - during certain times of day for the goat/elephant/zebra,
+  there is now a chance that it may or not act. - We can change this to weathers if needed for variance.
+
+  The above 2 behaviours still allow for the breeding of animals (this may change depending on numbers)
+
+
 2. Stats window
 3. Document

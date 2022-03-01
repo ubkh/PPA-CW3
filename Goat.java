@@ -56,8 +56,8 @@ public class Goat extends Prey {
     @Override
     public void act(List<Entity> newZebras, Weather weather, TimeOfDay time) {
         incrementAge();
+        setActiveness(1);
 
-        decayifDead();
         if(isAlive()) {
             giveBirth(newZebras);
 
@@ -66,29 +66,40 @@ public class Goat extends Prey {
                 return;
             }
 
-            // Try to move into a free location.
-            Location newLocation;
-
-            if (getRandom().nextDouble() <= getDiseaseSpreadProbability() ) {
-                newLocation = findAnimalToInfect();
-            } else {
-                newLocation = findFood();
+            //Could move below if statement above the disease statement
+            //50% Chance of acting when it is around midnight
+            if (time == TimeOfDay.LATE_MORNING){
+                this.setActiveness(0.8);
             }
 
-            // Random chance to do either?
+            //rand.nextDouble() <= getBreedingProbability()
+            if (rand.nextDouble() <= getActiveness()){
+                // Try to move into a free location.
+                Location newLocation;
 
-            if ((newLocation == null) || (getFoodValue() > 10)) {
-                newLocation = getField().freeAdjacentLocation(getLocation());
-            }
+                if (getRandom().nextDouble() <= getDiseaseSpreadProbability() ) {
+                    newLocation = findAnimalToInfect();
+                } else {
+                    newLocation = findFood();
+                }
 
-            if(newLocation != null) {
-                setLocation(newLocation);
+                // Random chance to do either?
+
+                if ((newLocation == null) || (getFoodValue() > 10)) {
+                    newLocation = getField().freeAdjacentLocation(getLocation());
+                }
+
+                if(newLocation != null) {
+                    setLocation(newLocation);
+                }
+                else {
+                    // Overcrowding.
+                    //setDead();
+                    remove();
+                }
             }
-            else {
-                // Overcrowding.
-                //setDead();
-                remove();
-            }
+        } else {
+            decayifDead();
         }
     }
 

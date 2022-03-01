@@ -1,13 +1,19 @@
 import java.util.List;
+import java.util.Random;
 
 public abstract class Prey extends Animal implements Consumable {
 
+    protected static final Random rand = Randomizer.getRandom();
+    private static final double DEFAULT_ACTIVENESS = 1;
     private int foodValue;
+    private double activeness;  // denotes how likely it is for the act method to be called
+    // This is so that we can have
 
     public Prey(int foodValue, boolean randomAge, Field field, Location location) {
         super(randomAge, field, location);
 
         this.foodValue = foodValue;
+        this.activeness = DEFAULT_ACTIVENESS;
     }
 
     @Override
@@ -38,7 +44,7 @@ public abstract class Prey extends Animal implements Consumable {
     public boolean eat(Consumable consumable) {
         if (consumable.isPoisonous()) {
             infect(this);
-            System.out.println("INFECTED PREY");
+            //System.out.println("INFECTED PREY");
         }
         incrementFoodValue(consumable.getFoodValue());
         consumable.setEaten();
@@ -49,5 +55,13 @@ public abstract class Prey extends Animal implements Consumable {
     @Override
     public boolean isPoisonous() {
         return false;
+    }
+
+    public double getActiveness() {
+        return activeness;
+    }
+
+    public void setActiveness(double activeness) {
+        this.activeness = activeness;
     }
 }

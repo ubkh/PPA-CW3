@@ -7,10 +7,12 @@ public abstract class Predator extends Animal {
     private Random rand = new Random();
 
     private int foodLevel;
+    private boolean isAsleep;
 
     public Predator(int foodLevel, boolean randomAge, Field field, Location location) {
         super(randomAge, field, location);
 
+        this.isAsleep = false;
         this.foodLevel = foodLevel;
     }
 

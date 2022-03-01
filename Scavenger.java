@@ -16,6 +16,11 @@ public abstract class Scavenger extends Animal implements AbleToEat {
         if(isAlive()) {
             giveBirth(newScavengers);
 
+            //Could turn into interface
+            if (time == TimeOfDay.SUNSET){
+                return;
+            }
+
             if (getRandom().nextDouble() <= getDeathByDiseaseProbability() ) {
                 remove();
                 return;
