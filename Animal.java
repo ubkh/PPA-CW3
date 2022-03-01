@@ -46,7 +46,7 @@ public abstract class Animal extends Organism implements AbleToEat {
         return this.infected;
     }
 
-    protected void setInfected(boolean infected) {
+    private void setInfected(boolean infected) {
         this.infected = infected;
     }
 
