@@ -12,7 +12,7 @@ public class Populator {
     private static final double VULTURE_CREATION_PROBABILITY = 0.06;
 
     private static final double ELEPHANT_CREATION_PROBABILITY = 0.07;
-    private static final double CHEETAH_CREATION_PROBABILITY = 0.06;
+    private static final double CHEETAH_CREATION_PROBABILITY = 0.07;
     private static final double GOAT_CREATION_PROBABILITY = 0.07;
 
     private static final double GRASS_CREATION_PROBABILITY = 0.03;
@@ -52,7 +52,7 @@ public class Populator {
                 }
                 else if(rand.nextDouble() <= VULTURE_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
-                    Vulture vulture = new Vulture(15, true, field, location);
+                    Vulture vulture = new Vulture(40, true, field, location);
                     organisms.add(vulture);
                 }
                 else if(rand.nextDouble() <= GRASS_CREATION_PROBABILITY) {
@@ -72,7 +72,7 @@ public class Populator {
                 }
                 else if(rand.nextDouble() <= CHEETAH_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
-                    Cheetah cheetah = new Cheetah(15, true, field, location);
+                    Cheetah cheetah = new Cheetah(20, true, field, location);
                     organisms.add(cheetah);
                 }
                 else if(rand.nextDouble() <= POISON_BERRIES_CREATION_PROBABILITY) {

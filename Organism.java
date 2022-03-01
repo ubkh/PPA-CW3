@@ -3,6 +3,8 @@ import java.util.Random;
 
 public abstract class Organism implements Entity {
 
+    private static final int LIFETIME_AFTER_DEATH = 40;
+    //number of steps an organism remains for after dying but not having been eaten
     private boolean alive;
     private boolean removed;
     private Field field;
@@ -173,7 +175,7 @@ public abstract class Organism implements Entity {
         this.howLongDead++;
         //System.out.println("DEAD FOR " + this.howLongDead);
         //System.out.println("DEAD INCREMENT");
-        if (this.howLongDead > 40){
+        if (this.howLongDead > LIFETIME_AFTER_DEATH){
             remove();
             //System.out.println("FULLY DECAYED");
         }

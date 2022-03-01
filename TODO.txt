@@ -1,41 +1,19 @@
 TODO LIST
+----------------------------------------------------------------------------------------
+- FIX NUMBERS - make it last so all of the animals remain over 1000
 
-- Behaviour for animals: Probability of not moving to a new square (Cheetahs have lower
-probability)
-- Decay method for dead animals: eg. possibly after 5-10 steps if not eaten by another animal
-- Behaviours: We should aim for 2/3 behaviours - includes the behaviour where a predator doesnt have to eat is a behaviour.
-- At specific time of day, the predator will always eat so there 100% chance of eating the food if its found.
-- Sleep: method for each animal to adjust the sleeping times,
- or we could even do this in the animal class as an abstract method - we can have it so that female lions sleep for 1.5* the length of male lions
-- All sleep during same time of day, may change later
+list VARIABLES
 
-- We can make elephants only move every 2 steps? - Maybe.
-- Plant Grass, Plant PoisonBerries - the poison berries make you sleep.
+= for long methods, make private methods that are called in the class.
+--------------------------------------------------------------------------------------------
+- Implement easy behaviours
 
-- Predators can't see well in fog.
+        - WEATHER, timeofday
+
 
 - Plants grow slower/ die in snow. They grow in all weather except snow.
-- Size of grass can depend on RECENT rain + sun.
-- Could instead make the size of the grass grow by a larger factor, if there's sun and rain in the past 4 weather types.
+- includes the behaviour where a predator doesnt have to eat is a behaviour.
+- At specific time of day, the predator will always eat so there 100% chance of eating the food if its found.
+---------------------------------------------------------------------------------------------
+
 - Ideally what we actually want is more grass to be created
-(override givebirth and the breeding probability (this is final which is an issue)???)
-
-
-- Size influences food value of plant. Size of PoisonBerries influences poison level.
-
-- At the end you could have a stats window (perhaps use the same code from assignment 1)
-
-____________________________________________________________________________________________________________
-
-PRIORITIES
-1. Implement behaviours, incl. weather and time-of-day
-
-- Predators - lion and cheetah, and vulture(scavenger), could refactor as a sleep interface
-- added prey field activeness - during certain times of day for the goat/elephant/zebra,
-  there is now a chance that it may or not act. - We can change this to weathers if needed for variance.
-
-  The above 2 behaviours still allow for the breeding of animals (this may change depending on numbers)
-
-
-2. Stats window
-3. Document

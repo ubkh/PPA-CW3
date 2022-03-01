@@ -2,13 +2,13 @@ import java.util.List;
 
 public class Lion extends Predator {
 
-    private static final double BREEDING_PROBABILITY = 0.12;
-    private static final double EATING_PROBABILITY = 0.6;
+    private static final double BREEDING_PROBABILITY = 0.115;
+    private static final double EATING_PROBABILITY = 0.3;
     private static final int MAX_LITTER_SIZE = 2;
-    private static final int BREEDING_AGE = 10;
+    private static final int BREEDING_AGE = 35;
     private static final int MAX_AGE = 130;
 
-    private static final int DEFAULT_FOOD_LEVEL = 15;
+    private static final int DEFAULT_FOOD_LEVEL = 20;
 
     private static final double SPREAD_DISEASE_PROBABILITY = 0.01;
     private static final double DEATH_BY_DISEASE_PROBABILITY = 0.01;

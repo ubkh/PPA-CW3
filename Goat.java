@@ -8,11 +8,10 @@ public class Goat extends Prey {
     private static final int BREEDING_AGE = 10;
     private static final int MAX_AGE = 100;
 
-    private static final int DEFAULT_FOOD_VALUE = 1;
+    private static final int DEFAULT_FOOD_VALUE = 5;
 
-    private static final double SPREAD_DISEASE_PROBABILITY = 0.5;
+    private static final double SPREAD_DISEASE_PROBABILITY = 0.1;
     private static final double DEATH_BY_DISEASE_PROBABILITY = 0.001;
-    private static final double SPREAD_DISEASE_MATING_PROBABILITY = 0.2;
 
     public Goat(int foodValue, boolean randomAge, Field field, Location location) {
         super(foodValue, randomAge, field, location);

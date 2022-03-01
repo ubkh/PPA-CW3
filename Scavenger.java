@@ -7,6 +7,7 @@ public abstract class Scavenger extends Animal implements AbleToEat {
 
     public Scavenger(int foodLevel, boolean randomAge, Field field, Location location) {
         super(randomAge, field, location);
+        this.foodLevel = foodLevel;
     }
 
     @Override

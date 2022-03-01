@@ -1,15 +1,15 @@
 public class Vulture extends Scavenger {
 
-    private static final double BREEDING_PROBABILITY = 0.12;
+    private static final double BREEDING_PROBABILITY = 0.04;
     private static final int MAX_LITTER_SIZE = 2;
     private static final int BREEDING_AGE = 20;
-    private static final int MAX_AGE = 300;
+    private static final int MAX_AGE = 80;
 
-    private static final int DEFAULT_FOOD_LEVEL = 15;
+    private static final int DEFAULT_FOOD_LEVEL = 40;
 
     private static final double SPREAD_DISEASE_PROBABILITY = 0.01;
     private static final double DEATH_BY_DISEASE_PROBABILITY = 0.001;
-    private static final double SPREAD_DISEASE_MATING_PROBABILITY = 0.2;
+
 
     public Vulture(int foodLevel, boolean randomAge, Field field, Location location) {
         super(foodLevel, randomAge, field, location);
