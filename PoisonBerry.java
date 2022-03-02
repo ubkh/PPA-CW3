@@ -13,10 +13,10 @@ public class PoisonBerry extends Plant {
     // define fields
     private static final double MAX_SIZE = 10.0;
     private static final int MAX_AGE = 20;
-    private static final int BREEDING_AGE = 14;
-    private static final double LOW_BREEDING_PROBABILITY = 0.1;
+    private static final int BREEDING_AGE = 16;
+    private static final double LOW_BREEDING_PROBABILITY = 0.104;
     private static final double HIGH_BREEDING_PROBABILITY = 0.2;
-    private static final int MAX_LITTER_SIZE = 2;
+    private static final int MAX_LITTER_SIZE = 3;
     private static final double DEFAULT_SIZE = 1.00;
     private static final int DEFAULT_FOOD_VALUE = 5;
     private static final double DEFAULT_GROWTH_RATE = 1.2;

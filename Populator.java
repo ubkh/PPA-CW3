@@ -14,21 +14,21 @@ public class Populator {
 
     // define fields
     // The probability that a lion will be created in any given grid position.
-    private static final double LION_CREATION_PROBABILITY = 0.04;
+    private static final double LION_CREATION_PROBABILITY = 0.05;
     // The probability that a zebra will be created in any given grid position.
-    private static final double ZEBRA_CREATION_PROBABILITY = 0.07;
+    private static final double ZEBRA_CREATION_PROBABILITY = 0.05;
     // The probability that a vulture will be created in any given grid position.
-    private static final double VULTURE_CREATION_PROBABILITY = 0.06;
+    private static final double VULTURE_CREATION_PROBABILITY = 0.05;
     // The probability that an elephant will be created in any given grid position.
-    private static final double ELEPHANT_CREATION_PROBABILITY = 0.07;
+    private static final double ELEPHANT_CREATION_PROBABILITY = 0.05;
     // The probability that a cheetah will be created in any given grid position.
-    private static final double CHEETAH_CREATION_PROBABILITY = 0.07;
+    private static final double CHEETAH_CREATION_PROBABILITY = 0.05;
     // The probability that a goat will be created in any given grid position.
-    private static final double GOAT_CREATION_PROBABILITY = 0.07;
+    private static final double GOAT_CREATION_PROBABILITY = 0.05;
     // The probability that grass will be created in any given grid position.
-    private static final double GRASS_CREATION_PROBABILITY = 0.03;
+    private static final double GRASS_CREATION_PROBABILITY = 0.04;
     // The probability that some poison berries will be created in any given grid position.
-    private static final double POISON_BERRIES_CREATION_PROBABILITY = 0.03;
+    private static final double POISON_BERRIES_CREATION_PROBABILITY = 0.04;
 
     /**
      * Constructor for the populator.

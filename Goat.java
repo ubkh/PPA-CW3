@@ -13,7 +13,7 @@ import java.util.Random;
 public class Goat extends Prey {
 
     // define fields
-    private static final double BREEDING_PROBABILITY = 0.3;
+    private static final double BREEDING_PROBABILITY = 0.3065;
     private static final int MAX_LITTER_SIZE = 3;
     private static final int BREEDING_AGE = 10;
     private static final int MAX_AGE = 150;
