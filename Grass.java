@@ -4,7 +4,7 @@ import java.util.Random;
 public class Grass extends Plant {
 
     private static final double MAX_SIZE = 10.0;
-    private static final int MAX_AGE = 20;
+    private static final int MAX_AGE = 25;
     private static final int BREEDING_AGE = 16;
     private static final double LOW_BREEDING_PROBABILITY = 0.1;
     private static final double HIGH_BREEDING_PROBABILITY = 0.2;

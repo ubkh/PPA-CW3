@@ -1,18 +1,39 @@
 import java.util.List;
+import java.util.Random;
 
+/**
+ * This file is part of the Predator-Prey Simulation.
+ *
+ * A Cheetah predator in the simulation.
+ *
+ * @author Ubayd Khan (k20044237) and Omar Ahmad (k21052417)
+ * @version 2022.03.02
+ */
 public class Cheetah extends Predator {
 
+    // define fields
     private static final double BREEDING_PROBABILITY = 0.115;
-    private static final double EATING_PROBABILITY = 0.3;
+    private static final double EATING_PROBABILITY = 0.6;
     private static final int MAX_LITTER_SIZE = 2;
-    private static final int BREEDING_AGE = 35;
-    private static final int MAX_AGE = 130;
+    private static final int BREEDING_AGE = 25;
+    private static final int MAX_AGE = 140;
 
-    private static final int DEFAULT_FOOD_LEVEL = 20;
+    private static final int DEFAULT_FOOD_LEVEL = 19;
 
     private static final double SPREAD_DISEASE_PROBABILITY = 0.01;
     private static final double DEATH_BY_DISEASE_PROBABILITY = 0.01;
 
+    // shared random generator to generate consistent results
+    private static final Random rand = Randomizer.getRandom();
+
+    /**
+     * Constructor for a Cheetah in the simulation.
+     *
+     * @param foodLevel
+     * @param randomAge
+     * @param field
+     * @param location
+     */
     public Cheetah(int foodLevel, boolean randomAge, Field field, Location location) {
         super(foodLevel, randomAge, field, location);
     }
@@ -65,7 +86,7 @@ public class Cheetah extends Predator {
                 return;
             }
 
-            if (getRandom().nextDouble() <= getDeathByDiseaseProbability() ) {
+            if (rand.nextDouble() <= getDeathByDiseaseProbability() ) {
                 remove();
                 return;
             }
@@ -73,7 +94,7 @@ public class Cheetah extends Predator {
             // Move towards a source of food if found.
             Location newLocation;
 
-            if (getRandom().nextDouble() <= getDiseaseSpreadProbability() ) {
+            if (rand.nextDouble() <= getDiseaseSpreadProbability() ) {
                 newLocation = findAnimalToInfect();
             } else {
                 newLocation = findFood();

@@ -1,17 +1,20 @@
 import java.util.List;
+import java.util.Random;
 
 public class Lion extends Predator {
 
     private static final double BREEDING_PROBABILITY = 0.115;
-    private static final double EATING_PROBABILITY = 0.3;
+    private static final double EATING_PROBABILITY = 0.6;
     private static final int MAX_LITTER_SIZE = 2;
     private static final int BREEDING_AGE = 35;
     private static final int MAX_AGE = 130;
 
-    private static final int DEFAULT_FOOD_LEVEL = 20;
+    private static final int DEFAULT_FOOD_LEVEL = 19;
 
     private static final double SPREAD_DISEASE_PROBABILITY = 0.01;
     private static final double DEATH_BY_DISEASE_PROBABILITY = 0.01;
+
+    private static final Random rand = Randomizer.getRandom();
 
     public Lion(int foodLevel, boolean randomAge, Field field, Location location) {
         super(foodLevel, randomAge, field, location);
@@ -67,7 +70,7 @@ public class Lion extends Predator {
                 return;
             }
 
-            if (getRandom().nextDouble() <= getDeathByDiseaseProbability() ) {
+            if (rand.nextDouble() <= getDeathByDiseaseProbability() ) {
                 remove();
                 return;
             }
@@ -75,7 +78,7 @@ public class Lion extends Predator {
             // Move towards a source of food if found.
             Location newLocation;
 
-            if (getRandom().nextDouble() <= getDiseaseSpreadProbability() ) {
+            if (rand.nextDouble() <= getDiseaseSpreadProbability() ) {
                 newLocation = findAnimalToInfect();
             } else {
                 newLocation = findFood();

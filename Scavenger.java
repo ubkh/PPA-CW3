@@ -1,7 +1,7 @@
 import java.util.Iterator;
 import java.util.List;
 
-public abstract class Scavenger extends Animal implements AbleToEat {
+public abstract class Scavenger extends Animal {
 
     private int foodLevel;
 

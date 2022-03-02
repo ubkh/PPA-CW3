@@ -1,17 +1,20 @@
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 public class Elephant extends Prey {
 
-    private static final double BREEDING_PROBABILITY = 0.2;
-    private static final int MAX_LITTER_SIZE = 2;
+    private static final double BREEDING_PROBABILITY = 0.3;
+    private static final int MAX_LITTER_SIZE = 3;
     private static final int BREEDING_AGE = 10;
-    private static final int MAX_AGE = 100;
+    private static final int MAX_AGE = 150;
 
     private static final int DEFAULT_FOOD_VALUE = 5;
 
     private static final double SPREAD_DISEASE_PROBABILITY = 0.1;
     private static final double DEATH_BY_DISEASE_PROBABILITY = 0.001;
+
+    private static final Random rand = Randomizer.getRandom();
 
     public Elephant(int foodValue, boolean randomAge, Field field, Location location) {
         super(foodValue, randomAge, field, location);
@@ -61,7 +64,7 @@ public class Elephant extends Prey {
             giveBirth(newZebras);
 
 
-            if (getRandom().nextDouble() <= getDeathByDiseaseProbability() ) {
+            if (rand.nextDouble() <= getDeathByDiseaseProbability() ) {
                 remove();
                 return;
             }
@@ -77,7 +80,7 @@ public class Elephant extends Prey {
                 // Try to move into a free location.
                 Location newLocation;
 
-                if (getRandom().nextDouble() <= getDiseaseSpreadProbability() ) {
+                if (rand.nextDouble() <= getDiseaseSpreadProbability() ) {
                     newLocation = findAnimalToInfect();
                 } else {
                     newLocation = findFood();

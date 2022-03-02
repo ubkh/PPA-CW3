@@ -42,7 +42,7 @@ public class Populator {
             for(int col = 0; col < field.getWidth(); col++) {
                 if(rand.nextDouble() <= LION_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
-                    Lion lion = new Lion(20, true, field, location);
+                    Lion lion = new Lion(19, true, field, location);
                     organisms.add(lion);
                 }
                 else if(rand.nextDouble() <= ZEBRA_CREATION_PROBABILITY) {
@@ -72,7 +72,7 @@ public class Populator {
                 }
                 else if(rand.nextDouble() <= CHEETAH_CREATION_PROBABILITY) {
                     Location location = new Location(row, col);
-                    Cheetah cheetah = new Cheetah(20, true, field, location);
+                    Cheetah cheetah = new Cheetah(19, true, field, location);
                     organisms.add(cheetah);
                 }
                 else if(rand.nextDouble() <= POISON_BERRIES_CREATION_PROBABILITY) {

@@ -4,7 +4,7 @@ import java.util.Random;
 
 public abstract class Predator extends Animal {
 
-    private Random rand = new Random();
+    private static final Random rand = Randomizer.getRandom();
 
     private int foodLevel;
     private boolean isAsleep;
