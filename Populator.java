@@ -2,23 +2,39 @@ import java.awt.*;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * This file is part of the Predator-Prey Simulation.
+ *
+ * A populator for the field in the simulation.
+ *
+ * @author Ubayd Khan (k20044237) and Omar Ahmad (k21052417)
+ * @version 2022.03.02
+ */
 public class Populator {
 
-    // The probability that a fox will be created in any given grid position.
+    // define fields
+    // The probability that a lion will be created in any given grid position.
     private static final double LION_CREATION_PROBABILITY = 0.04;
-    // The probability that a rabbit will be created in any given grid position.
+    // The probability that a zebra will be created in any given grid position.
     private static final double ZEBRA_CREATION_PROBABILITY = 0.07;
-
+    // The probability that a vulture will be created in any given grid position.
     private static final double VULTURE_CREATION_PROBABILITY = 0.06;
-
+    // The probability that an elephant will be created in any given grid position.
     private static final double ELEPHANT_CREATION_PROBABILITY = 0.07;
+    // The probability that a cheetah will be created in any given grid position.
     private static final double CHEETAH_CREATION_PROBABILITY = 0.07;
+    // The probability that a goat will be created in any given grid position.
     private static final double GOAT_CREATION_PROBABILITY = 0.07;
-
+    // The probability that grass will be created in any given grid position.
     private static final double GRASS_CREATION_PROBABILITY = 0.03;
+    // The probability that some poison berries will be created in any given grid position.
     private static final double POISON_BERRIES_CREATION_PROBABILITY = 0.03;
 
-
+    /**
+     * Constructor for the populator.
+     *
+     * @param view A given SimulatorView.
+     */
     public Populator(SimulatorView view) {
         // Create a view of the state of each location in the field.
         view.setColor(Zebra.class, Color.BLUE);

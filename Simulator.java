@@ -6,8 +6,8 @@ import java.util.List;
  * A simple predator-prey simulator, based on a rectangular field
  * containing rabbits and foxes.
  * 
- * @author David J. Barnes and Michael Kölling
- * @version 2016.02.29 (2)
+ * @author David J. Barnes, Michael Kölling, Ubayd Khan (k20044237) and Omar Ahmad (k21052417)
+ * @version 2022.03.02
  */
 public class Simulator
 {
@@ -103,9 +103,7 @@ public class Simulator
             Organism organism = (Organism) entity;
 
             organism.act(newOrganisms, currentWeather, currentTime);
-//            if(! organism.isAlive()) {
-//                it.remove();
-//            }
+
             if(organism.isRemoved()) {
                 it.remove();
             }
@@ -125,15 +123,11 @@ public class Simulator
         // every hour, generate new weather if we are done with current weather
         if (step % 5 == 0) {
             currentWeather.generate();
-            //System.out.println("HOUR " + hour);
-            //System.out.println(currentWeather.getType());
         }
 
         // update time
         if ((hour % 4 == 0) && (step % 5 == 0)) {
-            //System.out.println("HOUR " + hour);
             currentTime = currentTime.next();
-            //System.out.println(currentTime);
         }
     }
 

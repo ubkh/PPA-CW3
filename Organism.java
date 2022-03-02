@@ -1,10 +1,19 @@
 import java.util.List;
 import java.util.Random;
 
+/**
+ * This file is part of the Predator-Prey Simulation.
+ *
+ * An abstract class representing any organism in the simulation.
+ *
+ * @author Ubayd Khan (k20044237) and Omar Ahmad (k21052417)
+ * @version 2022.03.02
+ */
 public abstract class Organism implements Entity {
 
-    private static final int LIFETIME_AFTER_DEATH = 40;
+    // define fields
     //number of steps an organism remains for after dying but not having been eaten
+    private static final int LIFETIME_AFTER_DEATH = 40;
     private boolean alive;
     private boolean removed;
     private Field field;
@@ -13,8 +22,16 @@ public abstract class Organism implements Entity {
 
     private int age;
 
+    // shared random generator to generate consistent results
     private static final Random rand = Randomizer.getRandom();
 
+    /**
+     * Constructor for an Organism in the simulation.
+     *
+     * @param randomAge Whether we assign this organism a random age or not.
+     * @param field The field in which this organism resides.
+     * @param location The location in which this organism is spawned into.
+     */
     public Organism(boolean randomAge, Field field, Location location) {
         this.howLongDead = 0;
         alive = true;
@@ -29,12 +46,19 @@ public abstract class Organism implements Entity {
         }
     }
 
+    /**
+     * Abstract method for what an organism does, i.e. what is always run at every step.
+     *
+     * @param newOrganisms A list of all newborn organisms in this simulation step.
+     * @param weather The current state of weather in the simulation.
+     * @param time The current state of time in the simulation.
+     */
     @Override
     abstract public void act(List<Entity> newOrganisms, Weather weather, TimeOfDay time);
 
     /**
-     * Check whether the animal is alive or not.
-     * @return true if the animal is still alive.
+     * Check whether the organism is alive or not.
+     * @return true if the organism is still alive.
      */
     protected boolean isAlive()
     {
@@ -54,12 +78,18 @@ public abstract class Organism implements Entity {
         removed = true;
     }
 
+    /**
+     * Return whether the current organism object is supposed
+     * to be removed from the simulation.
+     *
+     * @return A boolean value representing if the organism has been removed or not.
+     */
     public boolean isRemoved() {
         return removed;
     }
 
     /**
-     * Indicate that the animal is no longer alive.
+     * Indicate that the organism is no longer alive.
      */
     protected void setDead()
     {
@@ -67,8 +97,8 @@ public abstract class Organism implements Entity {
     }
 
     /**
-     * Return the animal's location.
-     * @return The animal's location.
+     * Return the organism's location.
+     * @return The organism's location.
      */
     protected Location getLocation()
     {
@@ -76,8 +106,8 @@ public abstract class Organism implements Entity {
     }
 
     /**
-     * Place the animal at the new location in the given field.
-     * @param newLocation The animal's new location.
+     * Place the organism at the new location in the given field.
+     * @param newLocation The organism's new location.
      */
     protected void setLocation(Location newLocation)
     {
@@ -88,28 +118,55 @@ public abstract class Organism implements Entity {
         field.place(this, newLocation);
     }
 
-    // TEMP
+    /**
+     * Set the organism's location to a null value directly.
+     */
     protected void setLocationToNull() {
         location = null;
     }
 
     /**
-     * Return the animal's field.
-     * @return The animal's field.
+     * Return the organism's field.
+     * @return The organism's field.
      */
     protected Field getField()
     {
         return this.field;
     }
 
+    /**
+     * Getter method for the probability to breed of the organism.
+     *
+     * @return A double value representing the breeding probability.
+     */
     abstract public double getBreedingProbability();
 
+    /**
+     * Getter method for the maximum litter size of the organism's newborns.
+     *
+     * @return An integer value representing the maximum allowed litter size.
+     */
     abstract public int getMaxLitterSize();
 
+    /**
+     * Getter method for the maximum age of the organism.
+     *
+     * @return An integer value representing the maximum age.
+     */
     abstract public int getMaxAge();
 
+    /**
+     * Getter method for the age of breeding of the organism.
+     *
+     * @return A double value representing the breeding age.
+     */
     abstract public int getBreedingAge();
 
+    /**
+     * Called when breeding occurs for this organism.
+     *
+     * @return The number of births as a result of breeding.
+     */
     protected int breed() {
         int births = 0;
         if(canBreed() && rand.nextDouble() <= getBreedingProbability()) {
@@ -118,16 +175,20 @@ public abstract class Organism implements Entity {
         return births;
     }
 
+    /**
+     * Create a new instance of this organism.
+     * @param field The field in which the spawn will reside in.
+     * @param location The location in which the spawn will occupy.
+     * @return A new Organism instance.
+     */
     abstract protected Organism createNewOrganism(Field field, Location location);
 
     /**
-     * Check whether or not this animal is to give birth at this step.
+     * Check whether or not this organism is to give birth at this step.
      * New births will be made into free adjacent locations.
      * @param newOrganisms A list to return newly born organisms.
      */
     protected void giveBirth(List<Entity> newOrganisms) {
-        // TODO: Account for fact adjacent organism may have free adjacent location, but current one may not.
-
         // New organisms are born into adjacent locations.
         // Get a list of adjacent free locations.
         Field field = getField();
@@ -139,7 +200,12 @@ public abstract class Organism implements Entity {
         }
     }
 
-    // MAY CHANGE - canBreed() may not need specific calls for each species
+    /**
+     * Checks all adjacent location for organisms that meet specific
+     * breeding conditions, and returns true if it is even possible.
+     *
+     * @return Whether this organism can breed or not.
+     */
     abstract protected boolean canBreed();
 
     /**
@@ -156,35 +222,32 @@ public abstract class Organism implements Entity {
         }
     }
 
+    /**
+     * Getter method for the current age of this organism.
+     *
+     * @return An integer value representing age.
+     */
     protected int getAge() {
         return this.age;
     }
 
+    /**
+     * Setter method for the field in which this organism resides.
+     * @param field The field where the organism is located.
+     */
     protected void setField(Field field) {
         this.field = field;
     }
 
-    //TODO: Call this decay method in ALL act methods of the animals we have made.
-
     /**
      * Prevents overcrowding of dead animals
-     * Remove the organism from the field after being dead for 10 steps and not being eaten.
+     * Remove the organism from the field after being dead for a s
+     * specified number of steps and not being eaten.
      */
     protected void decayifDead() {
-        //if (!isAlive()) {
         this.howLongDead++;
-        //System.out.println("DEAD FOR " + this.howLongDead);
-        //System.out.println("DEAD INCREMENT");
         if (this.howLongDead > LIFETIME_AFTER_DEATH){
             remove();
-            //System.out.println("FULLY DECAYED");
         }
-        //}
-        //System.out.println("DEAD FOR " + howLongDead);
-
-    }
-
-    protected Random getRandom() {
-        return rand;
     }
 }

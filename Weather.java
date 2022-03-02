@@ -1,7 +1,16 @@
 import java.util.*;
 
+/**
+ * This file is part of the Predator-Prey Simulation.
+ *
+ * A class for the weather in the simulation.
+ *
+ * @author Ubayd Khan (k20044237) and Omar Ahmad (k21052417)
+ * @version 2022.03.02
+ */
 public class Weather {
 
+    // define fields
     private static final double SUN_PROBABILITY = 0.2;
     private static final double RAIN_PROBABILITY = 0.1;
     private static final double FOG_PROBABILITY = 0.3;
@@ -17,11 +26,20 @@ public class Weather {
 
     private static final Random rand = Randomizer.getRandom();
 
+    /**
+     * Constructor for Weather class.
+     *
+     * @param initialType Initial given weather.
+     */
     public Weather(WeatherType initialType) {
         this.type = initialType;
         recentWeather = new ArrayList<>();
     }
 
+    /**
+     * Generates the next weather event to produce, on the
+     * condition one is not already in progress.
+     */
     public void generate() {
         if (count != 0) {
             count++;
@@ -56,17 +74,20 @@ public class Weather {
             recentWeather.remove(0);
         }
         count++;
-        //return type;
     }
 
+    /**
+     * Returns an ArrayList of the most recent weathers.
+     * @return ArrayList of most recent weathers.
+     */
     public ArrayList<WeatherType> getRecentWeather() {
         return recentWeather;
     }
 
-    public void setType(WeatherType type) {
-        this.type = type;
-    }
-
+    /**
+     * Get the current type of weather.
+     * @return Get current weather type.
+     */
     public WeatherType getType() {
         return this.type;
     }

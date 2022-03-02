@@ -56,7 +56,7 @@ public abstract class Animal extends Organism implements AbleToEat {
      * Checks all adjacent location for animals that meet specific
      * breeding conditions, and returns true if it is even possible.
      *
-     * @return Whether this animal can breed o not.
+     * @return Whether this animal can breed or not.
      */
     @Override
     abstract protected boolean canBreed();

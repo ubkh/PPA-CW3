@@ -1,15 +1,43 @@
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
+/**
+ * This file is part of the Predator-Prey Simulation.
+ *
+ * A scavenger animal present in the simulation.
+ *
+ * @author Ubayd Khan (k20044237) and Omar Ahmad (k21052417)
+ * @version 2022.03.02
+ */
 public abstract class Scavenger extends Animal {
 
+    // define fields
     private int foodLevel;
 
+    // shared random generator to generate consistent results
+    private static final Random rand = Randomizer.getRandom();
+
+    /**
+     * Constructor for a scavenger in the simulation.
+     *
+     * @param foodLevel The food level of this scavenger.
+     * @param randomAge Whether the scavenger should have a random age or not.
+     * @param field The field in which the scavenger resides.
+     * @param location The location in which the scavenger spawns into.
+     */
     public Scavenger(int foodLevel, boolean randomAge, Field field, Location location) {
         super(randomAge, field, location);
         this.foodLevel = foodLevel;
     }
 
+    /**
+     * Method for what the scavenger does, i.e. what is always run at every step.
+     *
+     * @param newScavengers A list of all newborn scavengers in this simulation step.
+     * @param weather The current state of weather in the simulation.
+     * @param time The current state of time in the simulation.
+     */
     @Override
     public void act(List<Entity> newScavengers, Weather weather, TimeOfDay time) {
         incrementAge();
@@ -17,12 +45,11 @@ public abstract class Scavenger extends Animal {
         if(isAlive()) {
             giveBirth(newScavengers);
 
-            //Could turn into interface
             if (time == TimeOfDay.SUNSET){
                 return;
             }
 
-            if (getRandom().nextDouble() <= getDeathByDiseaseProbability() ) {
+            if (rand.nextDouble() <= getDeathByDiseaseProbability() ) {
                 remove();
                 return;
             }
@@ -30,7 +57,7 @@ public abstract class Scavenger extends Animal {
             // Move towards a source of food if found.
             Location newLocation;
 
-            if (getRandom().nextDouble() <= getDiseaseSpreadProbability() ) {
+            if (rand.nextDouble() <= getDiseaseSpreadProbability() ) {
                 newLocation = findAnimalToInfect();
             } else {
                 newLocation = findFood();
@@ -53,6 +80,10 @@ public abstract class Scavenger extends Animal {
         }
     }
 
+    /**
+     * Find a food source the scavenger would want to eat.
+     * @return The location of the food source.
+     */
     @Override
     public Location findFood() {
         Field field = getField();
@@ -74,6 +105,12 @@ public abstract class Scavenger extends Animal {
         return null;
     }
 
+    /**
+     * Eat the corpse of a dead prey.
+     *
+     * @param consumable The item to be eaten.
+     * @return Whether the consumable was eaten or not.
+     */
     @Override
     public boolean eat(Consumable consumable) {
         // the scavenger does not leave its prey
@@ -82,30 +119,31 @@ public abstract class Scavenger extends Animal {
         return true;
     }
 
+    /**
+     * Checks all adjacent location for scavengers that meet specific
+     * breeding conditions, and returns true if it is even possible.
+     *
+     * @return Whether this scavenger can breed or not.
+     */
     @Override
     abstract public boolean canBreed();
 
-    protected int getFoodLevel() {
-        return this.foodLevel;
-    }
-
-    private void setFoodLevel(int level) {
-        this.foodLevel = level;
-    }
-
+    /**
+     * Increment the food level of this scavenger by a given amount.
+     *
+     * @param foodLevel A given food level.
+     */
     public void incrementFoodLevel(int foodLevel) {
         this.foodLevel += foodLevel;
     }
 
     /**
-     * Make this animal more hungry. This could result in the animal's death.
+     * Make this scavenger more hungry. This could result in the scavenger's death.
      */
     public void incrementHunger() {
-        //if (isAlive()) {
         foodLevel--;
         if (foodLevel <= 0) {
             remove();
         }
-        //}
     }
 }
